@@ -212,26 +212,24 @@ void lua_from_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
 
 
 
-const char* lua_from_str_help1 = R"(
-lua_from_str1 测试函数
+const char* lua_from_file_help1 = R"(
+lua_from_str1 测试从脚本加载 lua 函数.
 
     lua_from_str1(a,b)  输入参数求和
 
 示例：
     lua_from_str1(1,2) == 3
-)"; /* lua_from_str_help1 */
+)"; /* lua_from_file_help1 */
 
 /**
- * @brief 从字符串解析 lua 函数.
+ * @brief 从脚本加载 lua 函数.
  *
  * @param nlhs      返回值数量
  * @param plhs[]    返回值数组
  * @param nrhs      输入参数数量
  * @param prhs[]    输入参数数组
- *
- * Note: bex 函数的签名是固定的. 参见宏 `BALTAM_PLUGIN_FCN` 的定义.
  */
-void lua_from_str1(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
+void lua_from_file1(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
     /** ---- 输入参数检查 ---- */
     // 只返回一个值
     if( nlhs >  1 ) return;
@@ -240,19 +238,37 @@ void lua_from_str1(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
 
     /** ---- 获取输入参数 ---- */
     sol::state lua;
+    /**
+     * base, package, string, table, math, io, os, debug, count
+     * bit32, ffi, jit
+     */
+    lua.open_libraries(sol::lib::base, sol::lib::package);
     double a,b;
     a = *bxGetDoubles(prhs[0]);
     b = *bxGetDoubles(prhs[1]);
 
     /** ---- 主体函数计算 ---- */
-    lua.script(R"(
-        function _lua_func (a, b)
-            return a + b
-        end
-    )");
+    fs::path lua_file = _plugin_dll_path / fs::path("lua_func.lua");
+    if (fs::exists(lua_file)) {
+        lua.script_file(lua_file.generic_string());
+    } else {
+        std::cerr
+            << "lua file not exists."
+            << "path=" << lua_file << '\n'
+            << std::endl;
+    }
+
     sol::function _lua_func = lua["_lua_func"];
-    double result = _lua_func(a, b);
-    assert((a + b == result));
+    double result = -1;
+    try {
+        result = _lua_func(a, b);
+        // assert((a + b == result));
+    } catch( std::exception& e ) {
+        std::cerr
+            << "lua exception: \n"
+            << e.what() << '\n'
+            << std::endl;
+    }
 
     /** ---- 返回值赋值 ---- */
     plhs[0] = bxCreateDoubleScalar(result);
