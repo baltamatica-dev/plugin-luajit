@@ -67,6 +67,14 @@ luajit_version  lua_from_str    lua_from_file   lua_ffi_call
     注意: 目前的帮助信息中的用法还未实现
 
 
+## 参考文档
+
+- [sol] https://sol2.readthedocs.io/en/latest/tutorial/all-the-things.html
+- [LuaJIT] https://luajit.org/ext_ffi_tutorial.html
+- [LuaJIT] https://moonbingbing.gitbooks.io/openresty-best-practices/content/lua/FFI.html
+
+- Lua binding: https://blog.codingnow.com/2020/11/rmlui_lua_binding.html
+
 ## LICENSE
 
 `/* SPDX-License-Identifier: MIT */`
