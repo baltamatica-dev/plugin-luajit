@@ -46,15 +46,20 @@ int bxPluginFini() {
  * bxPluginFunctions 返回 指向函数列表的指针.
  */
 bexfun_info_t * bxPluginFunctions() {
-    static bexfun_info_t flist[] = {
-        /* name,     ptr,      help*/
-        {"lua_func", lua_func, lua_func_help},
+    bexfun_info_t* func_list_dyn = new bexfun_info_t[2];
 
-        // 最后一个元素, `name` 字段必须为空字符串 `""`
-        {"", nullptr, nullptr},
-    };
+    size_t i = 0;
+    func_list_dyn[i].name = "lua_func";
+    func_list_dyn[i].ptr  = lua_func;
+    func_list_dyn[i].help = lua_func_help;
 
-    return flist;
+    // 最后一个元素, `name` 字段必须为空字符串 `""`
+    i++;
+    func_list_dyn[i].name = "";
+    func_list_dyn[i].ptr  = nullptr;
+    func_list_dyn[i].help = nullptr;
+
+    return func_list_dyn;
 }
 
 
