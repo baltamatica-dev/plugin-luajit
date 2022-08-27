@@ -25,10 +25,13 @@ extern const char* lua_func_help;
  *
  * bxPluginInit 由 load_plugin(name, args...) 调用
  * 用于进行一些初始化工作
+ *
+ * @param nInit
+ * @param pInit[]
  */
 int bxPluginInit(int nInit, const bxArray* pInit[]) {
     return 0;
-}
+} /* bxPluginInit */
 
 /**
  * @brief [可选] 插件终止时清理函数.
@@ -38,7 +41,7 @@ int bxPluginInit(int nInit, const bxArray* pInit[]) {
  */
 int bxPluginFini() {
     return 0;
-}
+} /* bxPluginFini */
 
 /**
  * @brief 【必选】 列出插件提供的函数.
@@ -60,7 +63,7 @@ bexfun_info_t * bxPluginFunctions() {
     func_list_dyn[i].help = nullptr;
 
     return func_list_dyn;
-}
+} /* bxPluginFunctions */
 
 
 /** ===========================================================================
@@ -85,6 +88,12 @@ lua_func 测试函数
 /**
  * @brief bex 函数实现.
  *
+ * @param nlhs      返回值数量
+ * @param plhs[]    返回值数组
+ * @param nrhs      输入参数数量
+ * @param prhs[]    输入参数数组
+ *
+ * Note: bex 函数的签名是固定的. 参见宏 `BALTAM_PLUGIN_FCN` 的定义.
  */
 void lua_func(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
     /** ---- 输入参数检查 ---- */
@@ -103,4 +112,4 @@ void lua_func(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
 
     /** ---- 返回值赋值 ---- */
     plhs[0] = bxCreateDoubleScalar(result);
-} /* void lua_func */
+} /* lua_func */
