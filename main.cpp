@@ -196,3 +196,51 @@ void lua_from_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
     /** ---- 返回值赋值 ---- */
     plhs[0] = bxCreateDoubleScalar(result);
 } /* lua_from_str */
+
+
+
+const char* lua_from_str_help1 = R"(
+lua_from_str1 测试函数
+
+    lua_from_str1(a,b)  输入参数求和
+
+示例：
+    lua_from_str1(1,2) == 3
+)"; /* lua_from_str_help1 */
+
+/**
+ * @brief 从字符串解析 lua 函数.
+ *
+ * @param nlhs      返回值数量
+ * @param plhs[]    返回值数组
+ * @param nrhs      输入参数数量
+ * @param prhs[]    输入参数数组
+ *
+ * Note: bex 函数的签名是固定的. 参见宏 `BALTAM_PLUGIN_FCN` 的定义.
+ */
+void lua_from_str1(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
+    /** ---- 输入参数检查 ---- */
+    // 只返回一个值
+    if( nlhs >  1 ) return;
+    // 两个输入参数
+    if( nrhs != 2 ) return;
+
+    /** ---- 获取输入参数 ---- */
+    sol::state lua;
+    double a,b;
+    a = *bxGetDoubles(prhs[0]);
+    b = *bxGetDoubles(prhs[1]);
+
+    /** ---- 主体函数计算 ---- */
+    lua.script(R"(
+        function _lua_func (a, b)
+            return a + b
+        end
+    )");
+    sol::function _lua_func = lua["_lua_func"];
+    double result = _lua_func(a, b);
+    assert((a + b == result));
+
+    /** ---- 返回值赋值 ---- */
+    plhs[0] = bxCreateDoubleScalar(result);
+} /* lua_from_str1 */
