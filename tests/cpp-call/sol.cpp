@@ -7,6 +7,14 @@ namespace fs = std::filesystem;
 int main(int argc, char* argv[]) {
     fs::path _plugin_dll_path = fs::path("S:\\bex-dev\\bex\\plugin-luajit");
     sol::state lua;
+    /**
+     * base, package, string, table, math, io, os, debug, count
+     *
+     * Lua 5.2:  coroutine
+     * Lua 5.3+: utf8
+     * Lua JIT:  bit32, ffi, jit
+     */
+    lua.open_libraries(sol::lib::base, sol::lib::package, sol::lib::ffi);
 
     fs::path lua_file = _plugin_dll_path / fs::path("lua_func.lua");
     if (fs::exists(lua_file)) {
