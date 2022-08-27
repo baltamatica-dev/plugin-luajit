@@ -26,6 +26,8 @@ fs::path _plugin_dll_path;
  *
  * 注意: 这里的帮助字符串需要指定 extern
  */
+BALTAM_PLUGIN_FCN(luajit_version);
+extern const char* luajit_version_help;
 BALTAM_PLUGIN_FCN(lua_from_str);
 extern const char* lua_from_str_help;
 BALTAM_PLUGIN_FCN(lua_from_file);
@@ -69,10 +71,15 @@ int bxPluginFini() {
  */
 bexfun_info_t * bxPluginFunctions() {
     // 已定义的插件函数个数
-    constexpr size_t TOTAL_PLUGIN_FUNCTIONS = 3;
+    constexpr size_t TOTAL_PLUGIN_FUNCTIONS = 4;
     bexfun_info_t* func_list_dyn = new bexfun_info_t[TOTAL_PLUGIN_FUNCTIONS + 1];
 
     size_t i = 0;
+    func_list_dyn[i].name = "luajit_version";
+    func_list_dyn[i].ptr  = luajit_version;
+    func_list_dyn[i].help = luajit_version_help;
+
+    i++;
     func_list_dyn[i].name = "lua_from_str";
     func_list_dyn[i].ptr  = lua_from_str;
     func_list_dyn[i].help = lua_from_str_help;
@@ -103,6 +110,24 @@ bexfun_info_t * bxPluginFunctions() {
  * @brief 插件中各函数的实现.
  *
  */
+
+const char* luajit_version_help = R"(
+luajit_version  显示插件版本信息
+
+    LuaJIT 插件
+    Github:     https://github.com/baltamatica-dev/plugin-luajit
+    LICENSE:    MIT License
+    Copyright (c) 2022 Chengyu HAN
+
+版本信息
+    bex SDK: 20220323
+    [MIT] plugin-luajit (master)
+    [MIT] LuaJIT (03080b7)
+    [MIT] sol2 (4de99c5)
+)"; /* luajit_version_help */
+BALTAM_PLUGIN_FCN(luajit_version) {
+    std::cout << luajit_version_help << std::endl;
+} /* luajit_version */
 
 /**
  * @brief [可选] 函数的帮助文档.

@@ -1,3 +1,4 @@
+--[[ SPDX-License-Identifier: MIT ]]
 -- Lua JIT ffi
 local ffi = require("ffi")
 
