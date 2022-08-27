@@ -36,8 +36,8 @@ int bxPluginInit(int nInit, const bxArray* pInit[]) {
  * bxPluginFini 由 unload_plugin() 调用
  * 用于进行一些清理工作
  */
-int bxPluginFini() { 
-    return 0; 
+int bxPluginFini() {
+    return 0;
 }
 
 /**
@@ -49,7 +49,7 @@ bexfun_info_t * bxPluginFunctions() {
     static bexfun_info_t flist[] = {
         /* name,     ptr,      help*/
         {"lua_func", lua_func, lua_func_help},
-        
+
         // 最后一个元素, `name` 字段必须为空字符串 `""`
         {"", nullptr, nullptr},
     };
