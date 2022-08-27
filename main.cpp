@@ -22,6 +22,8 @@ using namespace baltam;
  */
 BALTAM_PLUGIN_FCN(lua_from_str);
 extern const char* lua_from_str_help;
+BALTAM_PLUGIN_FCN(lua_from_file);
+extern const char* lua_from_file_help;
 
 /**
  * @brief [可选] 插件初始化函数.
@@ -52,12 +54,19 @@ int bxPluginFini() {
  * bxPluginFunctions 返回 指向函数列表的指针.
  */
 bexfun_info_t * bxPluginFunctions() {
-    bexfun_info_t* func_list_dyn = new bexfun_info_t[2];
+    // 已定义的插件函数个数
+    constexpr size_t TOTAL_PLUGIN_FUNCTIONS = 2;
+    bexfun_info_t* func_list_dyn = new bexfun_info_t[TOTAL_PLUGIN_FUNCTIONS + 1];
 
     size_t i = 0;
     func_list_dyn[i].name = "lua_from_str";
     func_list_dyn[i].ptr  = lua_from_str;
     func_list_dyn[i].help = lua_from_str_help;
+
+    i++;
+    func_list_dyn[i].name = "lua_from_file";
+    func_list_dyn[i].ptr  = lua_from_file;
+    func_list_dyn[i].help = lua_from_file_help;
 
     // 最后一个元素, `name` 字段必须为空字符串 `""`
     i++;
@@ -65,6 +74,7 @@ bexfun_info_t * bxPluginFunctions() {
     func_list_dyn[i].ptr  = nullptr;
     func_list_dyn[i].help = nullptr;
 
+    assert((TOTAL_PLUGIN_FUNCTIONS == i));
     return func_list_dyn;
 } /* bxPluginFunctions */
 
@@ -99,6 +109,51 @@ lua_from_str 测试函数
  * Note: bex 函数的签名是固定的. 参见宏 `BALTAM_PLUGIN_FCN` 的定义.
  */
 void lua_from_str(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
+    /** ---- 输入参数检查 ---- */
+    // 只返回一个值
+    if( nlhs >  1 ) return;
+    // 两个输入参数
+    if( nrhs != 2 ) return;
+
+    /** ---- 获取输入参数 ---- */
+    sol::state lua;
+    double a,b;
+    a = *bxGetDoubles(prhs[0]);
+    b = *bxGetDoubles(prhs[1]);
+
+    /** ---- 主体函数计算 ---- */
+    lua.script(R"(
+        function _lua_func (a, b)
+            return a + b
+        end
+    )");
+    sol::function _lua_func = lua["_lua_func"];
+    double result = _lua_func(a, b);
+    assert((a + b == result));
+
+    /** ---- 返回值赋值 ---- */
+    plhs[0] = bxCreateDoubleScalar(result);
+} /* lua_from_str */
+
+
+const char* lua_from_file_help = R"(
+lua_from_file 测试从脚本加载 lua 函数.
+
+    lua_from_file(a,b)  输入参数求和
+
+示例：
+    lua_from_file(1,2) == 3
+)"; /* lua_from_str_help */
+
+/**
+ * @brief 从脚本加载 lua 函数.
+ *
+ * @param nlhs      返回值数量
+ * @param plhs[]    返回值数组
+ * @param nrhs      输入参数数量
+ * @param prhs[]    输入参数数组
+ */
+void lua_from_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
     /** ---- 输入参数检查 ---- */
     // 只返回一个值
     if( nlhs >  1 ) return;
