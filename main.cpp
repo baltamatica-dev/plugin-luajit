@@ -20,8 +20,8 @@ using namespace baltam;
  *
  * 注意: 这里的帮助字符串需要指定 extern
  */
-BALTAM_PLUGIN_FCN(lua_func);
-extern const char* lua_func_help;
+BALTAM_PLUGIN_FCN(lua_from_str);
+extern const char* lua_from_str_help;
 
 /**
  * @brief [可选] 插件初始化函数.
@@ -55,9 +55,9 @@ bexfun_info_t * bxPluginFunctions() {
     bexfun_info_t* func_list_dyn = new bexfun_info_t[2];
 
     size_t i = 0;
-    func_list_dyn[i].name = "lua_func";
-    func_list_dyn[i].ptr  = lua_func;
-    func_list_dyn[i].help = lua_func_help;
+    func_list_dyn[i].name = "lua_from_str";
+    func_list_dyn[i].ptr  = lua_from_str;
+    func_list_dyn[i].help = lua_from_str_help;
 
     // 最后一个元素, `name` 字段必须为空字符串 `""`
     i++;
@@ -79,17 +79,17 @@ bexfun_info_t * bxPluginFunctions() {
  * @brief [可选] 函数的帮助文档.
  * 在 `help func_name` 时显示
  */
-const char* lua_func_help = R"(
-lua_func 测试函数
+const char* lua_from_str_help = R"(
+lua_from_str 测试函数
 
-    lua_func(a,b)  输入参数求和
+    lua_from_str(a,b)  输入参数求和
 
 示例：
-    lua_func(1,2) == 3
-)"; /* lua_func_help */
+    lua_from_str(1,2) == 3
+)"; /* lua_from_str_help */
 
 /**
- * @brief bex 函数实现.
+ * @brief 从字符串解析 lua 函数.
  *
  * @param nlhs      返回值数量
  * @param plhs[]    返回值数组
@@ -98,7 +98,7 @@ lua_func 测试函数
  *
  * Note: bex 函数的签名是固定的. 参见宏 `BALTAM_PLUGIN_FCN` 的定义.
  */
-void lua_func(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
+void lua_from_str(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
     /** ---- 输入参数检查 ---- */
     // 只返回一个值
     if( nlhs >  1 ) return;
@@ -123,4 +123,4 @@ void lua_func(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
 
     /** ---- 返回值赋值 ---- */
     plhs[0] = bxCreateDoubleScalar(result);
-} /* lua_func */
+} /* lua_from_str */
