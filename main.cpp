@@ -243,9 +243,9 @@ void lua_ffi_call(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
      * bit32, ffi, jit
      */
     lua.open_libraries(sol::lib::base, sol::lib::package, sol::lib::ffi);
-    // double a,b;
-    // a = *bxGetDoubles(prhs[0]);
-    // b = *bxGetDoubles(prhs[1]);
+    // std::string lib_path = bxGetStringDataPr(prhs[0]);
+    // -- 为 lua 脚本注入全局变量
+    lua["_bex"] = lua.create_table_with("lua_root_path", _plugin_dll_path.generic_string());
 
     /** ---- 主体函数计算 ---- */
     fs::path lua_file = _plugin_dll_path / fs::path("lua_ffi.lua");

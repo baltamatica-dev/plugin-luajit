@@ -16,5 +16,10 @@ end
 
 function main ()
     -- test1: 弹窗
-    MessageBoxA ()
+    -- MessageBoxA ()
+    
+    -- test2: 加载 dll
+    print("_bex", _bex)
+    print("_bex", _bex.lua_root_path)
+    -- print(sum(1, 2))
 end
