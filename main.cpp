@@ -30,6 +30,8 @@ BALTAM_PLUGIN_FCN(lua_from_str);
 extern const char* lua_from_str_help;
 BALTAM_PLUGIN_FCN(lua_from_file);
 extern const char* lua_from_file_help;
+BALTAM_PLUGIN_FCN(lua_ffi_call);
+extern const char* lua_ffi_call_help;
 
 /**
  * @brief [可选] 插件初始化函数.
@@ -67,7 +69,7 @@ int bxPluginFini() {
  */
 bexfun_info_t * bxPluginFunctions() {
     // 已定义的插件函数个数
-    constexpr size_t TOTAL_PLUGIN_FUNCTIONS = 2;
+    constexpr size_t TOTAL_PLUGIN_FUNCTIONS = 3;
     bexfun_info_t* func_list_dyn = new bexfun_info_t[TOTAL_PLUGIN_FUNCTIONS + 1];
 
     size_t i = 0;
@@ -79,6 +81,11 @@ bexfun_info_t * bxPluginFunctions() {
     func_list_dyn[i].name = "lua_from_file";
     func_list_dyn[i].ptr  = lua_from_file;
     func_list_dyn[i].help = lua_from_file_help;
+
+    i++;
+    func_list_dyn[i].name = "lua_ffi_call";
+    func_list_dyn[i].ptr  = lua_ffi_call;
+    func_list_dyn[i].help = lua_ffi_call_help;
 
     // 最后一个元素, `name` 字段必须为空字符串 `""`
     i++;
@@ -212,14 +219,11 @@ void lua_from_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
 
 
 
-const char* lua_from_file_help1 = R"(
-lua_from_str1 测试从脚本加载 lua 函数.
+const char* lua_ffi_call_help = R"(
+lua_ffi_call 通过 LuaJIT ffi 动态加载 C 函数.
 
-    lua_from_str1(a,b)  输入参数求和
-
-示例：
-    lua_from_str1(1,2) == 3
-)"; /* lua_from_file_help1 */
+    lua_ffi_call(lib_name, func_name, 'arg_type', arg_val, ...)
+)"; /* lua_ffi_call_help */
 
 /**
  * @brief 从脚本加载 lua 函数.
@@ -229,12 +233,8 @@ lua_from_str1 测试从脚本加载 lua 函数.
  * @param nrhs      输入参数数量
  * @param prhs[]    输入参数数组
  */
-void lua_from_file1(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
+void lua_ffi_call(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
     /** ---- 输入参数检查 ---- */
-    // 只返回一个值
-    if( nlhs >  1 ) return;
-    // 两个输入参数
-    if( nrhs != 2 ) return;
 
     /** ---- 获取输入参数 ---- */
     sol::state lua;
@@ -242,13 +242,13 @@ void lua_from_file1(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) 
      * base, package, string, table, math, io, os, debug, count
      * bit32, ffi, jit
      */
-    lua.open_libraries(sol::lib::base, sol::lib::package);
-    double a,b;
-    a = *bxGetDoubles(prhs[0]);
-    b = *bxGetDoubles(prhs[1]);
+    lua.open_libraries(sol::lib::base, sol::lib::package, sol::lib::ffi);
+    // double a,b;
+    // a = *bxGetDoubles(prhs[0]);
+    // b = *bxGetDoubles(prhs[1]);
 
     /** ---- 主体函数计算 ---- */
-    fs::path lua_file = _plugin_dll_path / fs::path("lua_func.lua");
+    fs::path lua_file = _plugin_dll_path / fs::path("lua_ffi.lua");
     if (fs::exists(lua_file)) {
         lua.script_file(lua_file.generic_string());
     } else {
@@ -258,11 +258,10 @@ void lua_from_file1(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) 
             << std::endl;
     }
 
-    sol::function _lua_func = lua["_lua_func"];
+    sol::function _lua_main = lua["main"];
     double result = -1;
     try {
-        result = _lua_func(a, b);
-        // assert((a + b == result));
+        _lua_main();
     } catch( std::exception& e ) {
         std::cerr
             << "lua exception: \n"
@@ -271,5 +270,5 @@ void lua_from_file1(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) 
     }
 
     /** ---- 返回值赋值 ---- */
-    plhs[0] = bxCreateDoubleScalar(result);
-} /* lua_from_str1 */
+    // plhs[0] = bxCreateDoubleScalar(result);
+} /* lua_ffi_call */
