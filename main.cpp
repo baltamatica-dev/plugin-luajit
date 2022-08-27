@@ -2,6 +2,9 @@
 #include "bex/bex.hpp"
 // 导入 baltam 命名空间.
 using namespace baltam;
+// sol Lua 绑定
+#define SOL_ALL_SAFETIES_ON 1
+#include <sol/sol.hpp>
 
 
 /** ===========================================================================
@@ -103,12 +106,20 @@ void lua_func(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
     if( nrhs != 2 ) return;
 
     /** ---- 获取输入参数 ---- */
+    sol::state lua;
     double a,b;
     a = *bxGetDoubles(prhs[0]);
     b = *bxGetDoubles(prhs[1]);
 
     /** ---- 主体函数计算 ---- */
-    double result = a + b;
+    lua.script(R"(
+        function _lua_func (a, b)
+            return a + b
+        end
+    )");
+    sol::function _lua_func = lua["_lua_func"];
+    double result = _lua_func(a, b);
+    assert((a + b == result));
 
     /** ---- 返回值赋值 ---- */
     plhs[0] = bxCreateDoubleScalar(result);
