@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: MIT */
-// gcc -shared -O2 -o plus2.dll  main.c -fPIC
+// gcc -shared -O2 -o libadd2.c.dll  main.c -fPIC
 
 int sum(const int x, const int y) {
     return x + y;
