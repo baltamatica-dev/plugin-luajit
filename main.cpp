@@ -10,6 +10,9 @@ using namespace baltam;
 #include <sol/sol.hpp>
 
 
+/// 插件根目录
+fs::path _plugin_dll_path;
+
 /** ===========================================================================
  *
  * bex 导出函数定义
@@ -38,6 +41,12 @@ extern const char* lua_from_file_help;
  * @param pInit[]
  */
 int bxPluginInit(int nInit, const bxArray* pInit[]) {
+    /* ---- 设置插件根目录 `_plugin_dll_path` */
+    // 从环境变量获取目录
+    auto bex_root_path = std::getenv("BALTAM_PLUGIN_PATH");
+    fs::path plugin_path = fs::path(bex_root_path) / fs::path("plugins");
+    _plugin_dll_path = plugin_path / fs::path(bex_PLUGIN_NAME);
+
     return 0;
 } /* bxPluginInit */
 
@@ -170,13 +179,16 @@ void lua_from_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
     b = *bxGetDoubles(prhs[1]);
 
     /** ---- 主体函数计算 ---- */
-    auto bex_root_path = std::getenv("BALTAM_PLUGIN_PATH");
-    fs::path plugin_path = fs::path(bex_root_path) / fs::path("plugins");
-    fs::path lua_file_dir = plugin_path / fs::path(bex_PLUGIN_NAME);
-    std::cout << "lua_file_dir=" << lua_file_dir << std::endl;
-    fs::path lua_file = lua_file_dir / fs::path("lua_func.lua");
+    fs::path lua_file = _plugin_dll_path / fs::path("lua_func.lua");
+    if (fs::exists(lua_file)) {
+        lua.script_file(lua_file.generic_string());
+    } else {
+        std::cerr
+            << "lua file not exists."
+            << "path=" << lua_file << '\n'
+            << std::endl;
+    }
 
-    lua.script_file(lua_file.generic_string());
     sol::function _lua_func = lua["_lua_func"];
     double result = _lua_func(a, b);
     assert((a + b == result));
