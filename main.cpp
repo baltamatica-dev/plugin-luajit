@@ -174,6 +174,11 @@ void lua_from_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
 
     /** ---- 获取输入参数 ---- */
     sol::state lua;
+    /**
+     * base, package, string, table, math, io, os, debug, count
+     * bit32, ffi, jit
+     */
+    lua.open_libraries(sol::lib::base, sol::lib::package);
     double a,b;
     a = *bxGetDoubles(prhs[0]);
     b = *bxGetDoubles(prhs[1]);
@@ -190,8 +195,16 @@ void lua_from_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
     }
 
     sol::function _lua_func = lua["_lua_func"];
-    double result = _lua_func(a, b);
-    assert((a + b == result));
+    double result = -1;
+    try {
+        result = _lua_func(a, b);
+        // assert((a + b == result));
+    } catch( std::exception& e ) {
+        std::cerr
+            << "lua exception: \n"
+            << e.what() << '\n'
+            << std::endl;
+    }
 
     /** ---- 返回值赋值 ---- */
     plhs[0] = bxCreateDoubleScalar(result);
