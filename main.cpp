@@ -1,4 +1,7 @@
 /* SPDX-License-Identifier: MIT */
+#include <iostream>
+#include <filesystem>  // need c++17
+namespace fs = std::filesystem;
 #include "bex/bex.hpp"
 // 导入 baltam 命名空间.
 using namespace baltam;
@@ -167,11 +170,13 @@ void lua_from_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
     b = *bxGetDoubles(prhs[1]);
 
     /** ---- 主体函数计算 ---- */
-    lua.script(R"(
-        function _lua_func (a, b)
-            return a + b
-        end
-    )");
+    auto bex_root_path = std::getenv("BALTAM_PLUGIN_PATH");
+    fs::path plugin_path = fs::path(bex_root_path) / fs::path("plugins");
+    fs::path lua_file_dir = plugin_path / fs::path(bex_PLUGIN_NAME);
+    std::cout << "lua_file_dir=" << lua_file_dir << std::endl;
+    fs::path lua_file = lua_file_dir / fs::path("lua_func.lua");
+
+    lua.script_file(lua_file.generic_string());
     sol::function _lua_func = lua["_lua_func"];
     double result = _lua_func(a, b);
     assert((a + b == result));
