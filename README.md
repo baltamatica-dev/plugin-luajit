@@ -1,2 +1,5 @@
-# plugin-luajit
- LuaJIT 插件
+# LuaJIT 插件
+
+## LICENSE
+
+`/* SPDX-License-Identifier: MIT */`
