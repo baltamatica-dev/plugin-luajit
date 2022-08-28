@@ -4,7 +4,7 @@ target("add2.c")
     set_kind("shared")
 
     -- 添加源文件
-    add_files("*.cpp")
+    add_files("*.c")
 
     -- 安装依赖
     on_install(function (target)
