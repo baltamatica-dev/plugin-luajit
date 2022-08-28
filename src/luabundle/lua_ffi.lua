@@ -40,8 +40,11 @@ function main ()
 
     -- test2: 加载 dll
     print("test2")
-    print(bxComplexity)
-    print(bxComplexity.bxCOMPLEX)
+    print("bxComplexity=", bxComplexity)
+    print("bxComplexity.bxCOMPLEX=", bxComplexity.bxCOMPLEX)
+    print("_bex=", _bex)
+    print("_bex.nlhs=", _bex.nlhs)
+    print("_bex.nrhs=", _bex.nrhs)
     -- print(CAdd2(1, 2))
 
     -- TODO: 可以正确计算。但是会 crash
