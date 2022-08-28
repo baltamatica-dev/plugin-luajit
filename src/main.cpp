@@ -34,8 +34,8 @@ BALTAM_PLUGIN_FCN(luajit_version);
 extern const char* luajit_version_help;
 BALTAM_PLUGIN_FCN(luajit_test_eval_str);
 extern const char* luajit_test_eval_str_help;
-BALTAM_PLUGIN_FCN(lua_from_file);
-extern const char* lua_from_file_help;
+BALTAM_PLUGIN_FCN(luajit_test_eval_lua_file);
+extern const char* luajit_test_eval_lua_file_help;
 BALTAM_PLUGIN_FCN(luajit_ffi_call);
 extern const char* luajit_ffi_call_help;
 
@@ -91,9 +91,9 @@ bexfun_info_t * bxPluginFunctions() {
     func_list_dyn[i].help = luajit_test_eval_str_help;
 
     i++;
-    func_list_dyn[i].name = "lua_from_file";
-    func_list_dyn[i].ptr  = lua_from_file;
-    func_list_dyn[i].help = lua_from_file_help;
+    func_list_dyn[i].name = "luajit_test_eval_lua_file";
+    func_list_dyn[i].ptr  = luajit_test_eval_lua_file;
+    func_list_dyn[i].help = luajit_test_eval_lua_file_help;
 
     i++;
     func_list_dyn[i].name = "luajit_ffi_call";
@@ -194,13 +194,13 @@ void luajit_test_eval_str(int nlhs, bxArray *plhs[], int nrhs, const bxArray *pr
 } /* luajit_test_eval_str */
 
 
-const char* lua_from_file_help = R"(
-lua_from_file 测试从脚本加载 lua 函数.
+const char* luajit_test_eval_lua_file_help = R"(
+luajit_test_eval_lua_file [测试函数] 测试从脚本加载并执行 lua 函数.
 
-    lua_from_file(a,b)  输入参数求和
+    luajit_test_eval_lua_file(a,b)  输入参数求和
 
 示例：
-    lua_from_file(1,2) == 3
+    luajit_test_eval_lua_file(1,2) == 3
 )"; /* luajit_test_eval_str_help */
 
 /**
@@ -211,7 +211,7 @@ lua_from_file 测试从脚本加载 lua 函数.
  * @param nrhs      输入参数数量
  * @param prhs[]    输入参数数组
  */
-void lua_from_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
+void luajit_test_eval_lua_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
     /** ---- 输入参数检查 ---- */
     // 只返回一个值
     if( nlhs >  1 ) return;
