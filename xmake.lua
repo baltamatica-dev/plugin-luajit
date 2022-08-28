@@ -1,8 +1,34 @@
 add_rules("mode.debug", "mode.release")
 
-target("luajit")
-    set_kind("binary")
-    add_files("src/*.c")
+
+target("bex_luajit")
+    add_files("src/*.cpp")
+
+    set_prefixname("")  -- no `lib` prefix
+    set_basename("main")
+    set_kind("shared")
+    set_languages("c++17")
+    set_optimize("fastest")
+
+    add_includedirs(
+        "$(projectdir)/../baltam_sdk_20220323/include", 
+        "$(projectdir)/../sol2/include",
+        "$(projectdir)/../LuaJIT/src")
+    -- linker flags
+    add_linkdirs(
+        "$(projectdir)/../baltam_sdk_20220323/lib", 
+        "$(projectdir)/../LuaJIT/src")
+    add_links("bex")
+    add_links("luajit-5.1")
+    
+    -- 构建后复制依赖
+    after_build(function (target)
+        local target_file = path.join("$(projectdir)", target:targetfile())
+        local target_dir = path.join("$(projectdir)", target:targetdir())
+        os.cp("$(projectdir)/../LuaJIT/src/lua51.*", target_dir)
+        print("copy lua51.shared")
+    end)
+
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
@@ -72,4 +98,3 @@ target("luajit")
 --
 -- @endcode
 --
-

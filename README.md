@@ -12,6 +12,10 @@
 
 - [xmake.io][]: 编译工具
 
+```sh
+pacman -Sy mingw-w64-x86_64-xmake
+```
+
 
 <!-- 依赖 -->
 [LuaJIT]:  https://github.com/LuaJIT/LuaJIT
