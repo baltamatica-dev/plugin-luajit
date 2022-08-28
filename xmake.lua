@@ -19,10 +19,18 @@ if is_mode("release") then
     set_optimize("fastest")
 end
 
+-- 构建选项
+option("pluginname")
+    set_default("luajit")
+    set_showmenu(false)
+    set_description("在 bex 中显示的插件名.")
+option_end()
+
 
 -- 包含子文件夹
 includes("src")
--- includes("tests")
+includes("tests")
+
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
