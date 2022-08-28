@@ -1,7 +1,7 @@
 add_rules("mode.debug", "mode.release")
 
 
-target("bex_luajit")
+target("luajit")
     add_files("src/*.cpp")
 
     set_prefixname("")  -- no `lib` prefix
@@ -11,22 +11,28 @@ target("bex_luajit")
     set_optimize("fastest")
 
     add_includedirs(
-        "$(projectdir)/../baltam_sdk_20220323/include", 
+        "$(projectdir)/../baltam_sdk_20220323/include",
         "$(projectdir)/../sol2/include",
         "$(projectdir)/../LuaJIT/src")
     -- linker flags
     add_linkdirs(
-        "$(projectdir)/../baltam_sdk_20220323/lib", 
+        "$(projectdir)/../baltam_sdk_20220323/lib",
         "$(projectdir)/../LuaJIT/src")
     add_links("bex")
     add_links("luajit-5.1")
-    
-    -- 构建后复制依赖
-    after_build(function (target)
+
+    -- 安装依赖
+    on_install(function (target)
+        import "core.project.config"
+        local install_dir = path.join("$(buildir)/$(os)/", target:name())
+        if not os.exists(install_dir) then
+            os.mkdir(install_dir)
+        end
+
         local target_file = path.join("$(projectdir)", target:targetfile())
-        local target_dir = path.join("$(projectdir)", target:targetdir())
-        os.cp("$(projectdir)/../LuaJIT/src/lua51.*", target_dir)
-        print("copy lua51.shared")
+        os.cp(target_file, install_dir)
+        os.cp("$(projectdir)/../LuaJIT/src/lua51.*", install_dir)
+        os.cp("$(projectdir)/src/luabundle/", install_dir)
     end)
 
 
