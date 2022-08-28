@@ -1,4 +1,7 @@
 --[[ SPDX-License-Identifier: MIT ]]
+-- luajit_ffi_call 函数调用的测试文件
+-- 修改此文件不需要重新加载 luajit 插件
+
 -- Lua JIT ffi
 local ffi = require("ffi")
 
@@ -37,7 +40,9 @@ function main ()
 
     -- test2: 加载 dll
     print("test2")
-    print(CAdd2(1, 2))
+    print(bxComplexity)
+    print(bxComplexity.bxCOMPLEX)
+    -- print(CAdd2(1, 2))
 
     -- TODO: 可以正确计算。但是会 crash
     -- test3: load go dll

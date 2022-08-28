@@ -271,6 +271,69 @@ void luajit_test_eval_lua_file(int nlhs, bxArray *plhs[], int nrhs, const bxArra
 
 
 
+sol::state _register_usertype() {
+    sol::state lua;
+
+    /* ---- 类型绑定 ---- */
+
+    /* ---- 枚举绑定 ---- */
+    // 3rd\baltam_sdk\include\bex\bex.h#L54
+    lua.new_enum("bxComplexity",
+        "bxREAL",    bxREAL,
+        "bxCOMPLEX", bxCOMPLEX
+    );
+    // 3rd\baltam_sdk\include\bex\bex.h#L59
+    lua.new_enum("bxClassID",
+        "bxUNKNOWN_CLASS",  bxUNKNOWN_CLASS,
+        "bxINT_CLASS",      bxINT_CLASS,
+        "bxINT64_CLASS",    bxINT64_CLASS,
+        "bxDOUBLE_CLASS",   bxDOUBLE_CLASS,
+        "bxSINGLE_CLASS",   bxSINGLE_CLASS,
+        "bxCHAR_CLASS",     bxCHAR_CLASS,
+        "bxLOGICAL_CLASS",  bxLOGICAL_CLASS,
+        "bxSTRUCT_CLASS",   bxSTRUCT_CLASS,
+        "bxSTRING_CLASS",   bxSTRING_CLASS,
+        "bxEXTERN_CLASS",   bxEXTERN_CLASS,
+        "bxCELL_CLASS",     bxCELL_CLASS
+    );
+    // 3rd\baltam_sdk\include\bex\bx_op.h#L26
+    lua.new_enum("bxOperatorID",
+        "bxUNKNOWN_OP", bxUNKNOWN_OP,
+        // 双目运算符
+        "bxADD_OP", bxADD_OP,
+        "bxSUB_OP", bxSUB_OP,
+        "bxTIMES_OP", bxTIMES_OP,
+        "bxRDIV_OP", bxRDIV_OP,
+        "bxLDIV_OP", bxLDIV_OP,
+        "bxMTIMES_OP", bxMTIMES_OP,
+        "bxMRDIV_OP", bxMRDIV_OP,
+        "bxMLDIV_OP", bxMLDIV_OP,
+        "bxPOW_OP", bxPOW_OP,
+        "bxMPOW_OP", bxMPOW_OP,
+        "bxLT_OP", bxLT_OP,
+        "bxGT_OP", bxGT_OP,
+        "bxLE_OP", bxLE_OP,
+        "bxGE_OP", bxGE_OP,
+        "bxNE_OP", bxNE_OP,
+        "bxEQ_OP", bxEQ_OP,
+        "bxAND_OP", bxAND_OP,
+        "bxOR_OP", bxOR_OP,
+        "bxHCAT_OP", bxHCAT_OP,
+        "bxVCAT_OP", bxVCAT_OP,
+        // 单目运算符
+        "bxUMINUS_OP", bxUMINUS_OP,
+        "bxUPLUS_OP", bxUPLUS_OP,
+        "bxNOT_OP", bxNOT_OP,
+        "bxTRANSP_OP", bxTRANSP_OP,
+        "bxCTRANSP_OP", bxCTRANSP_OP,
+        "bxSUBSIND_OP", bxSUBSIND_OP
+        // 三目运算符
+    );
+
+    /* ---- 函数绑定 ---- */
+    return lua;
+} /* _register_usertype */
+
 const char* luajit_ffi_call_help = R"(
 luajit_ffi_call 通过 LuaJIT ffi 动态加载 C 函数.
 
@@ -289,12 +352,16 @@ void luajit_ffi_call(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[])
     /** ---- 输入参数检查 ---- */
 
     /** ---- 获取输入参数 ---- */
-    sol::state lua;
+    sol::state lua = _register_usertype();
+
     /**
      * base, package, string, table, math, io, os, debug, count
      * bit32, ffi, jit
      */
-    lua.open_libraries(sol::lib::base, sol::lib::package, sol::lib::ffi);
+    lua.open_libraries(
+        sol::lib::base, sol::lib::package,
+        sol::lib::ffi
+    );
     // std::string lib_path = bxGetStringDataPr(prhs[0]);
     // -- 为 lua 脚本注入全局变量
     lua["_bex"] = lua.create_table_with("dll_root_path", _plugin_dll_path.generic_string());
