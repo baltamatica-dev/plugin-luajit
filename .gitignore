@@ -1,3 +1,9 @@
+# Xmake cache
+.xmake/
+build/
+
+# MacOS Cache
+.DS_Store
 
 ## 编译产物
 *.o
