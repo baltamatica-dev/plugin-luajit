@@ -382,10 +382,24 @@ sol::state _register_usertype() {
 
     /* ==== 辅助函数 ==== */
     lua["bxPrintf"] = bxPrintf;
-    lua["ErrorMsg"] = bxErrMsgTxt;
+    lua["bxErrMsgTxt"] = bxErrMsgTxt;
     lua_bxArray["_bxCalcSingleSubscript"] =
         [](const bxArray* arr, int indexOrFlag, baIndex* indexPtr) {
             return bxCalcSingleSubscript(arr, indexOrFlag, indexPtr); };
+
+    /* ==== bex 外部数、操作符据注册 ==== */
+    // 外部数注册
+    lua["bxRegisterCStruct"] = bxRegisterCStruct;
+    lua["bxGetCStruct"] = bxGetCStruct;
+    lua["bxCreateCStruct"] = bxCreateCStruct;
+    // 操作符据注册
+    lua["bxRegisterUnaryOperator"] = bxRegisterUnaryOperator;
+    lua["bxRegisterBinaryOperator"] = bxRegisterBinaryOperator;
+    lua["bxRegisterTernaryOperator"] = bxRegisterTernaryOperator;
+    lua["bxRegisterUnaryOperatorID"] = bxRegisterUnaryOperatorID;
+    lua["bxRegisterBinaryOperatorID"] = bxRegisterBinaryOperatorID;
+    lua["bxRegisterTernaryOperatorID"] = bxRegisterTernaryOperatorID;
+
 
     return lua;
 } /* _register_usertype */
