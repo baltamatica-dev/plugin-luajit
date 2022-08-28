@@ -357,10 +357,10 @@ sol::state _register_usertype() {
     lua_bxArray["isStructType"] = [](const bxArray* arr) { return bxIsStruct(arr); };
     lua_bxArray["isCellType"] = [](const bxArray* arr) { return bxIsCell(arr); };
     // readonly?
-    lua_bxArray["_bxGetClassID"] = [](const bxArray* arr) { return bxGetClassID(arr); };
-    lua_bxArray["bxTypeCStr"] = [](const bxArray* arr) { return bxTypeCStr(arr); };
-    lua_bxArray["bxGetM"] = [](const bxArray* arr) { return bxGetM(arr); };
-    lua_bxArray["bxGetN"] = [](const bxArray* arr) { return bxGetN(arr); };
+    lua_bxArray["getClassID"] = [](const bxArray* arr) { return bxGetClassID(arr); };
+    lua_bxArray["getType"] = [](const bxArray* arr) { return bxTypeCStr(arr); };
+    lua_bxArray["getM"] = [](const bxArray* arr) { return bxGetM(arr); };
+    lua_bxArray["getN"] = [](const bxArray* arr) { return bxGetN(arr); };
     lua_bxArray["getStringLen"] = [](const bxArray* arr) { return bxGetStringLen(arr); };
     lua_bxArray["getStringLenAtIndex"] = [](const bxArray* arr, baIndex inx) { return bxGetStringLength(arr, inx); };
     lua_bxArray["_bxGetPr"] = [](const bxArray* arr) { return bxGetPr(arr); };
@@ -374,7 +374,7 @@ sol::state _register_usertype() {
     lua_bxArray["_bxGetLogicals"] = [](const bxArray* arr) { return bxGetLogicals(arr); };
     lua_bxArray["getString"] = [](const bxArray* arr) { return bxGetStringDataPr(arr); };
     lua_bxArray["getStringAtIndex"] = [](const bxArray* arr, baIndex inx) { return bxGetString(arr, inx); };
-    lua_bxArray["bxGetNumberOfFields"] = [](const bxArray* arr) { return bxGetNumberOfFields(arr); };
+    lua_bxArray["getNumberOfFields"] = [](const bxArray* arr) { return bxGetNumberOfFields(arr); };
 
     return lua;
 } /* _register_usertype */
