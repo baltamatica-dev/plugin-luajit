@@ -380,6 +380,53 @@ sol::state _register_usertype() {
     lua_bxArray["_bxAsInt"] = [](const bxArray* arr, int* flagOrIndex) { return bxAsInt(arr, flagOrIndex); };
     lua_bxArray["_bxAsCStr"] = [](const bxArray* arr, char* cPtr, baSize size) { return bxAsCStr(arr, cPtr, size); };
 
+    /* ==== 创建、修改和删除 ==== */
+    // 创建数据类型实例
+    lua["bxCreateDoubleMatrix"] = bxCreateDoubleMatrix;
+    lua["bxCreateNumericMatrix"] = bxCreateNumericMatrix;
+    lua["bxCreateLogicalMatrix"] = bxCreateLogicalMatrix;
+    lua["bxCreateCharMatrixFromStrings"] = bxCreateCharMatrixFromStrings;
+    lua["bxCreateString"] = bxCreateString;
+    lua["bxCreateStringObj"] = bxCreateStringObj;
+    lua["bxCreateStructMatrix"] = bxCreateStructMatrix;
+    lua["bxCreateCellMatrix"] = bxCreateCellMatrix;
+    lua["bxCreateStringMatrix"] = bxCreateStringMatrix;
+    lua["bxCreateStringMatrixFromStrings"] = bxCreateStringMatrixFromStrings;
+    lua["bxCreateInt32Scalar"] = bxCreateInt32Scalar;
+    lua["bxCreateInt64Scalar"] = bxCreateInt64Scalar;
+    lua["bxCreateDoubleScalar"] = bxCreateDoubleScalar;
+    lua["bxCreateSingleScalar"] = bxCreateSingleScalar;
+    lua["bxCreateComplexDoubleScalar"] = bxCreateComplexDoubleScalar;
+    lua["bxCreateComplexSingleScalar"] = bxCreateComplexSingleScalar;
+    // lua["bxCreateCharScalar"] = bxCreateCharScalar;
+    lua["bxCreateLogicalScalar"] = bxCreateLogicalScalar;
+    lua["bxCreateStringScalar"] = bxCreateStringScalar;
+
+    // 复制与删除
+    lua_bxArray["bxDuplicateArray"] = [](const bxArray* arr) { return bxDuplicateArray(arr); };
+    lua_bxArray["bxDuplicateArrayS"] = [](const bxArray* arr) { return bxDuplicateArrayS(arr); };
+    lua_bxArray["bxDestroyArray"] = [](bxArray* arr) { return bxDestroyArray(arr); };
+
+    // 修改
+    lua_bxArray["bxSetM"] = [](bxArray* arr, baSize newSize) { return bxSetM(arr, newSize); };
+    lua_bxArray["bxSetN"] = [](bxArray* arr, baSize newSize) { return bxSetN(arr, newSize); };
+    lua_bxArray["bxResize"] =
+        [](bxArray* arr, baSize newSizeM, baSize newSizeN) {
+            return bxResize(arr, newSizeM, newSizeN); };
+    lua_bxArray["bxSetStringFromCStr"] = [](bxArray* arr, const char* newStr) {
+        return bxSetStringFromCStr(arr, newStr); };
+    lua_bxArray["bxSetField"] =
+        [](bxArray* arr, baIndex index, const char* fname, bxArray* val) {
+            return bxSetField(arr, index, fname, val); };
+    lua_bxArray["bxRemoveField"] = [](bxArray* arr, const char* fname) {
+        return bxRemoveField(arr, fname); };
+    lua_bxArray["bxSetCell"] =
+        [](bxArray* arr, baIndex index, bxArray* val) {
+            return bxSetCell(arr, index, val); };
+    lua_bxArray["bxSetString"] =
+        [](bxArray* arr, baIndex index, const char* newStr) {
+            return bxSetString(arr, index, newStr); };
+
     /* ==== 辅助函数 ==== */
     lua["bxPrintf"] = bxPrintf;
     lua["bxErrMsgTxt"] = bxErrMsgTxt;
