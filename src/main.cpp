@@ -380,6 +380,13 @@ sol::state _register_usertype() {
     lua_bxArray["_bxAsInt"] = [](const bxArray* arr, int* flagOrIndex) { return bxAsInt(arr, flagOrIndex); };
     lua_bxArray["_bxAsCStr"] = [](const bxArray* arr, char* cPtr, baSize size) { return bxAsCStr(arr, cPtr, size); };
 
+    /* ==== 辅助函数 ==== */
+    lua["bxPrintf"] = bxPrintf;
+    lua["ErrorMsg"] = bxErrMsgTxt;
+    lua_bxArray["_bxCalcSingleSubscript"] =
+        [](const bxArray* arr, int indexOrFlag, baIndex* indexPtr) {
+            return bxCalcSingleSubscript(arr, indexOrFlag, indexPtr); };
+
     return lua;
 } /* _register_usertype */
 
