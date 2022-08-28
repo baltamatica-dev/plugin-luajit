@@ -1,18 +1,12 @@
 /* SPDX-License-Identifier: MIT */
-#include <filesystem>  // need c++17
-namespace fs = std::filesystem;
+#include "bex_luajit.hpp"
 #include "lua_binding.hpp"
-// 导入 baltam 命名空间.
-using namespace baltam;
 
 
 /// 插件根目录
 fs::path _plugin_dll_path;
 /// lua 脚本木偶
 fs::path _plugin_lua_path;
-const std::string LUA_DIR_NAME = "luabundle";
-
-
 /** ===========================================================================
  *
  * bex 导出函数定义
