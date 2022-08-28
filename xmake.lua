@@ -35,12 +35,15 @@ target("luajit")
         -- 打包 lua 文件
         local luabundle = path.join(install_dir, "luabundle/")
         if not os.exists(luabundle) then
-            -- os.cp("$(projectdir)/src/luabundle/", install_dir)
-            -- 链接 lua 文件目录，便于开发
-            os.execv("ln",  {"-s",
-                vformat("$(projectdir)/src/luabundle/"),
-                vformat(luabundle)
-            })
+            if vformat("$(os)") == "windows" then
+                -- 软连接 lua 文件目录，便于开发
+                os.execv("cmd",  { "/c", "mklink /d",
+                    path.absolute(vformat(luabundle)),
+                    path.absolute(vformat("$(projectdir)/src/luabundle/"))
+                })
+            else
+                os.cp("$(projectdir)/src/luabundle/", install_dir)
+            end
         end
     end)
 
