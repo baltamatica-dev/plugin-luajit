@@ -36,8 +36,9 @@ BALTAM_PLUGIN_FCN(lua_from_str);
 extern const char* lua_from_str_help;
 BALTAM_PLUGIN_FCN(lua_from_file);
 extern const char* lua_from_file_help;
-BALTAM_PLUGIN_FCN(lua_ffi_call);
-extern const char* lua_ffi_call_help;
+BALTAM_PLUGIN_FCN(luajit_ffi_call);
+extern const char* luajit_ffi_call_help;
+
 
 /**
  * @brief [可选] 插件初始化函数.
@@ -95,9 +96,9 @@ bexfun_info_t * bxPluginFunctions() {
     func_list_dyn[i].help = lua_from_file_help;
 
     i++;
-    func_list_dyn[i].name = "lua_ffi_call";
-    func_list_dyn[i].ptr  = lua_ffi_call;
-    func_list_dyn[i].help = lua_ffi_call_help;
+    func_list_dyn[i].name = "luajit_ffi_call";
+    func_list_dyn[i].ptr  = luajit_ffi_call;
+    func_list_dyn[i].help = luajit_ffi_call_help;
 
     // 最后一个元素, `name` 字段必须为空字符串 `""`
     i++;
@@ -249,11 +250,11 @@ void lua_from_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
 
 
 
-const char* lua_ffi_call_help = R"(
-lua_ffi_call 通过 LuaJIT ffi 动态加载 C 函数.
+const char* luajit_ffi_call_help = R"(
+luajit_ffi_call 通过 LuaJIT ffi 动态加载 C 函数.
 
-    lua_ffi_call(lib_name, func_name, 'arg_type', arg_val, ...)
-)"; /* lua_ffi_call_help */
+    luajit_ffi_call(lib_name, func_name, 'arg_type', arg_val, ...)
+)"; /* luajit_ffi_call_help */
 
 /**
  * @brief 从脚本加载 lua 函数.
@@ -263,7 +264,7 @@ lua_ffi_call 通过 LuaJIT ffi 动态加载 C 函数.
  * @param nrhs      输入参数数量
  * @param prhs[]    输入参数数组
  */
-void lua_ffi_call(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
+void luajit_ffi_call(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
     /** ---- 输入参数检查 ---- */
 
     /** ---- 获取输入参数 ---- */
@@ -302,4 +303,4 @@ void lua_ffi_call(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
 
     /** ---- 返回值赋值 ---- */
     // plhs[0] = bxCreateDoubleScalar(result);
-} /* lua_ffi_call */
+} /* luajit_ffi_call */
