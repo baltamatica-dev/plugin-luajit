@@ -280,7 +280,7 @@ sol::state _register_usertype() {
     sol::usertype<bxArray> lua_bxArray =
         lua.new_usertype<bxArray>(
             "bxArray",
-            "obj_ptr", &bxArray::obj_ptr
+            "obj_ptr", sol::readonly(&bxArray::obj_ptr)
         );
     // 3rd\baltam_sdk\include\bex\extern_fcn_type.h#L36
     lua.new_usertype<bexfun_info_t>(
