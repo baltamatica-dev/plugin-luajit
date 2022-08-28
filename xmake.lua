@@ -1,52 +1,28 @@
+-- 项目名称
+set_project("bex-luajit")
+
+-- xmake 所需最低版本
+set_xmakever("2.6.0")
+
+-- 项目版本号
+set_version("0.9.1", {build = "%Y%m%d%H%M"})
+
+-- C/C++ 标准
+set_languages("c++17")
+
+-- 指定构建模式
 add_rules("mode.debug", "mode.release")
-
-
-target("luajit")
-    add_files("src/*.cpp")
-
-    set_prefixname("")  -- no `lib` prefix
-    set_basename("main")
-    set_kind("shared")
-    set_languages("c++17")
+if is_mode("debug") then
+    set_optimize("none")
+end
+if is_mode("release") then
     set_optimize("fastest")
+end
 
-    add_includedirs(
-        "$(projectdir)/../baltam_sdk_20220323/include",
-        "$(projectdir)/../sol2/include",
-        "$(projectdir)/../LuaJIT/src")
-    -- linker flags
-    add_linkdirs(
-        "$(projectdir)/../baltam_sdk_20220323/lib",
-        "$(projectdir)/../LuaJIT/src")
-    add_links("bex")
-    add_links("luajit-5.1")
 
-    -- 安装依赖
-    on_install(function (target)
-        import "core.project.config"
-        local install_dir = path.join("$(buildir)/$(os)/", target:name())
-        if not os.exists(install_dir) then
-            os.mkdir(install_dir)
-        end
-
-        local target_file = path.join("$(projectdir)", target:targetfile())
-        os.cp(target_file, install_dir)
-        os.cp("$(projectdir)/../LuaJIT/src/lua51.*", install_dir)
-        -- 打包 lua 文件
-        local luabundle = path.join(install_dir, "luabundle/")
-        if not os.exists(luabundle) then
-            if vformat("$(os)") == "windows" then
-                -- 软连接 lua 文件目录，便于开发
-                os.execv("cmd",  { "/c", "mklink /d",
-                    path.absolute(vformat(luabundle)),
-                    path.absolute(vformat("$(projectdir)/src/luabundle/"))
-                })
-            else
-                os.cp("$(projectdir)/src/luabundle/", install_dir)
-            end
-        end
-    end)
-
+-- 包含子文件夹
+includes("src")
+-- includes("tests")
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
