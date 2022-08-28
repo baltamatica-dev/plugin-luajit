@@ -1,4 +1,6 @@
 target("sol")
+    -- 默认不编译
+    set_default(false)
 
     -- [[  添加头文件搜索路径  ]]
     add_includedirs("$(projectdir)/3rd/sol2/include")
