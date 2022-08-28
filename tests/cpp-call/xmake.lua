@@ -1,12 +1,12 @@
 target("sol")
 
     -- [[  添加头文件搜索路径  ]]
-    add_includedirs("$(projectdir)/../sol2/include")
-    add_includedirs("$(projectdir)/../LuaJIT/src")
+    add_includedirs("$(projectdir)/3rd/sol2/include")
+    add_includedirs("$(projectdir)/3rd/LuaJIT/src")
 
     -- [[  linker flags  ]]
     -- luaJIT
-    add_linkdirs("$(projectdir)/../LuaJIT/src")
+    add_linkdirs("$(projectdir)/3rd/LuaJIT/src")
     add_links("luajit-5.1")
 
     -- no `lib` prefix
