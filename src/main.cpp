@@ -197,10 +197,23 @@ void luajit_test_eval_str(int nlhs, bxArray *plhs[], int nrhs, const bxArray *pr
 const char* luajit_test_eval_lua_file_help = R"(
 luajit_test_eval_lua_file [测试函数] 测试从脚本加载并执行 lua 函数.
 
-    luajit_test_eval_lua_file(a,b)  输入参数求和
+    luajit_test_eval_lua_file(a, b)
+        输入 a,b 为 double;
+        返回 double
 
-示例：
+默认示例：
     luajit_test_eval_lua_file(1,2) == 3
+
+## dev note
+测试用 lua 文件为: `luabundle/lua_func.lua`.
+默认内容为:
+
+    -- luajit_test_eval_lua_file 函数调用的测试文件
+    function lua_add2 (a, b)
+        local c = a + b - 1
+        print("lua-print-test")
+        return c + 1
+    end
 )"; /* luajit_test_eval_str_help */
 
 /**
@@ -240,10 +253,10 @@ void luajit_test_eval_lua_file(int nlhs, bxArray *plhs[], int nrhs, const bxArra
             << std::endl;
     }
 
-    sol::function _lua_func = lua["_lua_func"];
+    sol::function lua_add2 = lua["lua_add2"];
     double result = -1;
     try {
-        result = _lua_func(a, b);
+        result = lua_add2(a, b);
         // assert((a + b == result));
     } catch( std::exception& e ) {
         std::cerr
