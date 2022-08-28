@@ -12,8 +12,6 @@ fs::path _plugin_lua_path;
  * bex 导出函数定义
  *
  */
-#define bex_PLUGIN_NAME  "luajit"
-
 
 /**
  * @brief 函数及帮助文档的前向声明.

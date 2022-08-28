@@ -12,6 +12,8 @@ namespace fs = std::filesystem;
 using namespace baltam;
 
 
+/// 插件名
+const std::string bex_PLUGIN_NAME = "luajit";
 /// 插件根目录
 extern fs::path _plugin_dll_path;
 /// lua 脚本木偶
