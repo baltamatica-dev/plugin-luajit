@@ -345,6 +345,18 @@ sol::state _register_usertype() {
     );
 
     /* ---- 函数绑定 ---- */
+    // bool
+    lua_bxArray["isInt32Type"] = [](const bxArray* arr) { return bxIsInt32(arr); };
+    lua_bxArray["isInt64Type"] = [](const bxArray* arr) { return bxIsInt64(arr); };
+    lua_bxArray["isDoubleType"] = [](const bxArray* arr) { return bxIsDouble(arr); };
+    lua_bxArray["isSingleType"] = [](const bxArray* arr) { return bxIsSingle(arr); };
+    lua_bxArray["isComplexType"] = [](const bxArray* arr) { return bxIsComplex(arr); };
+    lua_bxArray["isCharType"] = [](const bxArray* arr) { return bxIsChar(arr); };
+    lua_bxArray["isLogicalType"] = [](const bxArray* arr) { return bxIsLogical(arr); };
+    lua_bxArray["isStringType"] = [](const bxArray* arr) { return bxIsString(arr); };
+    lua_bxArray["isStructType"] = [](const bxArray* arr) { return bxIsStruct(arr); };
+    lua_bxArray["isCellType"] = [](const bxArray* arr) { return bxIsCell(arr); };
+
     return lua;
 } /* _register_usertype */
 

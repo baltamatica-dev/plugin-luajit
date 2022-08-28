@@ -34,6 +34,25 @@ end
 --     return lib.add2(a, b)
 -- end
 
+function bxArray_test ()
+    print("_bex         =", _bex)
+    print("_bex.nlhs    =", _bex.nlhs)
+    print("_bex.nrhs    =", _bex.nrhs)
+    if (_bex.nrhs > 0) then
+        print("_bex.prhs0   =", _bex.prhs0)
+        print("_bex.prhs0.isInt32Type()     =", _bex.prhs0:isInt32Type())
+        print("_bex.prhs0.isInt64Type()     =", _bex.prhs0:isInt64Type())
+        print("_bex.prhs0.isDoubleType()    =", _bex.prhs0:isDoubleType())
+        print("_bex.prhs0.isSingleType()    =", _bex.prhs0:isSingleType())
+        print("_bex.prhs0.isComplexType()   =", _bex.prhs0:isComplexType())
+        print("_bex.prhs0.isCharType()      =", _bex.prhs0:isCharType())
+        print("_bex.prhs0.isLogicalType()   =", _bex.prhs0:isLogicalType())
+        print("_bex.prhs0.isStringType()    =", _bex.prhs0:isStringType())
+        print("_bex.prhs0.isStructType()    =", _bex.prhs0:isStructType())
+        print("_bex.prhs0.isCellType()      =", _bex.prhs0:isCellType())
+    end
+end
+
 function main ()
     -- test1: 弹窗
     -- MessageBoxA ()
@@ -42,10 +61,8 @@ function main ()
     print("test2")
     print("bxComplexity=", bxComplexity)
     print("bxComplexity.bxCOMPLEX=", bxComplexity.bxCOMPLEX)
-    print("_bex=", _bex)
-    print("_bex.nlhs=", _bex.nlhs)
-    print("_bex.nrhs=", _bex.nrhs)
-    print("_bex.prhs0=", _bex.prhs0)
+    
+    bxArray_test ()
     -- print(CAdd2(1, 2))
 
     -- TODO: 可以正确计算。但是会 crash
