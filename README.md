@@ -31,36 +31,44 @@ pacman -Sy mingw-w64-x86_64-xmake
 
 ## 编译
 
-> TODO: 给出可复现的编译流程
-> 以下假定所有依赖及 SDK 均存放在 `~` 文件夹下
+> - 以下操作均在 shell 中进行。
+> - 以下假定 SDK 及 bex 本体均存放在 `~` 下
+> - 在 windows 上使用 MSYS2
 
-1. 编译 luajit  
-将生成的 `lua51.[so|dll]` 复制到本项目根目录下。
-并记下路径用于导入头文件 `-I"~/LuaJIT/src"`、
-链接 luajit 库 `-L"~/LuaJIT/src" -lluajit-5.1`
+```sh
+## ---- 源代码及依赖准备
+# clone 项目
+git clone --depth 1 --recurse-submodules -j4  https://github.com/baltamatica-dev/plugin-luajit.git
+cd plugin-luajit
 
-2. clone sol 库  
-记下路径用于导入头文件 `-I"~/sol2/include"`
+# 解压或软连接 bex SDK 到 `3rd/baltam_sdk/`
+ln -s ~/baltam_sdk_20220323/  3rd/baltam_sdk
 
-3. 准备好 bex SDK  
-记下路径用于导入头文件 `-I"~/baltam_sdk_20220323/include"`、
-链接 bex 库: `-L"~/baltam_sdk_20220323/lib" -lbex`
+## ---- 编译
+# 编译 lua
+make -C 3rd/LuaJIT/ -j4
+# 编译插件
+xmake
+# 打包安装插件及依赖到 `build/$(os)/luajit`
+xmake install
 
-4. 编译插件  
-根据前述的编译标志，修改 `compile.sh`. 
-执行 `./compile.sh`
+## ---- 安装
+# 注意: 这里以 windows 为例。其他系统第二级文件夹可能不同
+ls build/windows/luajit/
+# libadd2.c.dll  luabundle  main.dll  sol.exe
 
-得到编译产物 `main.[so|dll]`
+# 软连接 `luajit/` 到插件目录
+ln -s build/windows/luajit/  ~/baltamatica/plugins/luajit
 
-5. 建立目录软链接  
-将项目目录软连接到: `~/baltamatica/plugins/luajit`
+# [win] cmd
+# mklink /d d:\plugin-luajit\build\windows\luajit  d:\baltamatica\plugins\luajit
 
-*win*
-```cmd
-mklink /d d:\plugin-luajit d:\baltamatica\plugins\luajit
+## ==== 编译及安装完毕 ====
 ```
 
-6. 运行 baltamatica
+### 测试
+
+运行 baltamatica
 
 在图形界面中加载 `luajit` 库。或者通过 `load_plugin("luajit")` 命令加载。
 
