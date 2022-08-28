@@ -400,6 +400,13 @@ sol::state _register_usertype() {
     lua["bxRegisterBinaryOperatorID"] = bxRegisterBinaryOperatorID;
     lua["bxRegisterTernaryOperatorID"] = bxRegisterTernaryOperatorID;
 
+    /* ==== 插件函数原型 ==== */
+    //-- 以下是需要从 lua 导入 C++
+    // int bxPluginInitLib(void*);
+    // int bxPluginInit(int, const bxArray *[]);
+    // int bxPluginFini();
+    // 反向导出 bxPluginFunctions 方便查询元信息
+    lua["bxPluginFunctions"] = bxPluginFunctions;
 
     return lua;
 } /* _register_usertype */
