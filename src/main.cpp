@@ -491,6 +491,7 @@ void luajit_ffi_call(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[])
     lua["_bex"] = lua.create_table_with("dll_root_path", _plugin_dll_path.generic_string());
     lua["_bex"]["lua_root_path"] = _plugin_lua_path.generic_string();
     lua["_bex"]["nlhs"] = nlhs;
+    // lua["_bex"]["plhs"] = plhs;
     lua["_bex"]["nrhs"] = nrhs;
     lua["_bex"]["prhs0"] = prhs[0];
 
