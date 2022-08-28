@@ -50,6 +50,14 @@ function bxArray_test ()
         print("_bex.prhs0.isStringType()    =", _bex.prhs0:isStringType())
         print("_bex.prhs0.isStructType()    =", _bex.prhs0:isStructType())
         print("_bex.prhs0.isCellType()      =", _bex.prhs0:isCellType())
+        print()
+        print("_bex.prhs0._bxGetClassID()   =", _bex.prhs0:_bxGetClassID())
+        print("_bex.prhs0.bxTypeCStr()      =", _bex.prhs0:bxTypeCStr())
+        
+        print("_bex.prhs0.bxGetStringLen()  =", _bex.prhs0:bxGetStringLen())
+        print("_bex.prhs0._bxGetChars()     =", _bex.prhs0:_bxGetChars())
+        print("_bex.prhs0._bxGetStringDataPr()  =", _bex.prhs0:_bxGetStringDataPr())
+        print("bex.prhs0._bxGetNumberOfFields() =", _bex.prhs0:bxGetNumberOfFields())
     end
 end
 

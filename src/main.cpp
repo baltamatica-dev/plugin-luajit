@@ -356,6 +356,23 @@ sol::state _register_usertype() {
     lua_bxArray["isStringType"] = [](const bxArray* arr) { return bxIsString(arr); };
     lua_bxArray["isStructType"] = [](const bxArray* arr) { return bxIsStruct(arr); };
     lua_bxArray["isCellType"] = [](const bxArray* arr) { return bxIsCell(arr); };
+    // readonly?
+    lua_bxArray["_bxGetClassID"] = [](const bxArray* arr) { return bxGetClassID(arr); };
+    lua_bxArray["bxTypeCStr"] = [](const bxArray* arr) { return bxTypeCStr(arr); };
+    lua_bxArray["bxGetM"] = [](const bxArray* arr) { return bxGetM(arr); };
+    lua_bxArray["bxGetN"] = [](const bxArray* arr) { return bxGetN(arr); };
+    lua_bxArray["bxGetStringLen"] = [](const bxArray* arr) { return bxGetStringLen(arr); };
+    lua_bxArray["_bxGetPr"] = [](const bxArray* arr) { return bxGetPr(arr); };
+    lua_bxArray["_bxGetInt32s"] = [](const bxArray* arr) { return bxGetInt32s(arr); };
+    lua_bxArray["_bxGetInt64s"] = [](const bxArray* arr) { return bxGetInt64s(arr); };
+    lua_bxArray["_bxGetDoubles"] = [](const bxArray* arr) { return bxGetDoubles(arr); };
+    lua_bxArray["_bxGetSingles"] = [](const bxArray* arr) { return bxGetSingles(arr); };
+    lua_bxArray["_bxGetComplexDoubles"] = [](const bxArray* arr) { return bxGetComplexDoubles(arr); };
+    lua_bxArray["_bxGetComplexSingles"] = [](const bxArray* arr) { return bxGetComplexSingles(arr); };
+    lua_bxArray["_bxGetChars"] = [](const bxArray* arr) { return bxGetChars(arr); };
+    lua_bxArray["_bxGetLogicals"] = [](const bxArray* arr) { return bxGetLogicals(arr); };
+    lua_bxArray["_bxGetStringDataPr"] = [](const bxArray* arr) { return bxGetStringDataPr(arr); };
+    lua_bxArray["bxGetNumberOfFields"] = [](const bxArray* arr) { return bxGetNumberOfFields(arr); };
 
     return lua;
 } /* _register_usertype */
