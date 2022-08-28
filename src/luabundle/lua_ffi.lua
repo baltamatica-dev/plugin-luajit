@@ -45,6 +45,7 @@ function main ()
     print("_bex=", _bex)
     print("_bex.nlhs=", _bex.nlhs)
     print("_bex.nrhs=", _bex.nrhs)
+    print("_bex.prhs0=", _bex.prhs0)
     -- print(CAdd2(1, 2))
 
     -- TODO: 可以正确计算。但是会 crash

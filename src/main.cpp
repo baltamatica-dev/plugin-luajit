@@ -276,6 +276,20 @@ sol::state _register_usertype() {
 
     /* ---- 类型绑定 ---- */
 
+    // 3rd\baltam_sdk\include\bex\bex.h#L50
+    sol::usertype<bxArray> lua_bxArray =
+        lua.new_usertype<bxArray>(
+            "bxArray",
+            "obj_ptr", &bxArray::obj_ptr
+        );
+    // 3rd\baltam_sdk\include\bex\extern_fcn_type.h#L36
+    lua.new_usertype<bexfun_info_t>(
+        "bexfun_info_t",
+        "name", &bexfun_info_t::name,
+        "ptr",  &bexfun_info_t::ptr,
+        "help", &bexfun_info_t::help
+    );
+
     /* ---- 枚举绑定 ---- */
     // 3rd\baltam_sdk\include\bex\bex.h#L54
     lua.new_enum("bxComplexity",
@@ -368,6 +382,7 @@ void luajit_ffi_call(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[])
     lua["_bex"]["lua_root_path"] = _plugin_lua_path.generic_string();
     lua["_bex"]["nlhs"] = nlhs;
     lua["_bex"]["nrhs"] = nrhs;
+    lua["_bex"]["prhs0"] = prhs[0];
 
 
     /** ---- 主体函数计算 ---- */
