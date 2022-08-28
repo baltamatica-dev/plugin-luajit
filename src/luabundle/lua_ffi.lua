@@ -55,6 +55,7 @@ function bxArray_test ()
         print("_bex.prhs0.bxTypeCStr()      =", _bex.prhs0:bxTypeCStr())
         
         print("_bex.prhs0.bxGetStringLen()  =", _bex.prhs0:bxGetStringLen())
+        print("_bex.prhs0.bxGetStringLengthAtIndex(1) =", _bex.prhs0:bxGetStringLengthAtIndex(1))
         print("_bex.prhs0._bxGetChars()     =", _bex.prhs0:_bxGetChars())
         print("_bex.prhs0._bxGetStringDataPr()  =", _bex.prhs0:_bxGetStringDataPr())
         print("bex.prhs0._bxGetNumberOfFields() =", _bex.prhs0:bxGetNumberOfFields())

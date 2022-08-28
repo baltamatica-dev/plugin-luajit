@@ -362,6 +362,7 @@ sol::state _register_usertype() {
     lua_bxArray["bxGetM"] = [](const bxArray* arr) { return bxGetM(arr); };
     lua_bxArray["bxGetN"] = [](const bxArray* arr) { return bxGetN(arr); };
     lua_bxArray["bxGetStringLen"] = [](const bxArray* arr) { return bxGetStringLen(arr); };
+    lua_bxArray["bxGetStringLengthAtIndex"] = [](const bxArray* arr, baIndex inx) { return bxGetStringLength(arr, inx); };
     lua_bxArray["_bxGetPr"] = [](const bxArray* arr) { return bxGetPr(arr); };
     lua_bxArray["_bxGetInt32s"] = [](const bxArray* arr) { return bxGetInt32s(arr); };
     lua_bxArray["_bxGetInt64s"] = [](const bxArray* arr) { return bxGetInt64s(arr); };
