@@ -12,6 +12,10 @@ using namespace baltam;
 
 /// 插件根目录
 fs::path _plugin_dll_path;
+/// lua 脚本木偶
+fs::path _plugin_lua_path;
+const std::string LUA_DIR_NAME = "luabundle";
+
 
 /** ===========================================================================
  *
@@ -48,8 +52,9 @@ int bxPluginInit(int nInit, const bxArray* pInit[]) {
     /* ---- 设置插件根目录 `_plugin_dll_path` */
     // 从环境变量获取目录
     auto bex_root_path = std::getenv("BALTAM_PLUGIN_PATH");
-    fs::path plugin_path = fs::path(bex_root_path) / fs::path("plugins");
-    _plugin_dll_path = plugin_path / fs::path(bex_PLUGIN_NAME);
+    fs::path plugin_path = fs::path(bex_root_path) / "plugins";
+    _plugin_dll_path = plugin_path / bex_PLUGIN_NAME;
+    _plugin_lua_path = _plugin_dll_path / LUA_DIR_NAME;
 
     return 0;
 } /* bxPluginInit */
@@ -216,7 +221,7 @@ void lua_from_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
     b = *bxGetDoubles(prhs[1]);
 
     /** ---- 主体函数计算 ---- */
-    fs::path lua_file = _plugin_dll_path / fs::path("lua_func.lua");
+    fs::path lua_file = _plugin_lua_path / fs::path("lua_func.lua");
     if (fs::exists(lua_file)) {
         lua.script_file(lua_file.generic_string());
     } else {
@@ -270,10 +275,10 @@ void lua_ffi_call(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
     lua.open_libraries(sol::lib::base, sol::lib::package, sol::lib::ffi);
     // std::string lib_path = bxGetStringDataPr(prhs[0]);
     // -- 为 lua 脚本注入全局变量
-    lua["_bex"] = lua.create_table_with("lua_root_path", _plugin_dll_path.generic_string());
+    lua["_bex"] = lua.create_table_with("lua_root_path", _plugin_lua_path.generic_string());
 
     /** ---- 主体函数计算 ---- */
-    fs::path lua_file = _plugin_dll_path / fs::path("lua_ffi.lua");
+    fs::path lua_file = _plugin_lua_path / fs::path("lua_ffi.lua");
     if (fs::exists(lua_file)) {
         lua.script_file(lua_file.generic_string());
     } else {
