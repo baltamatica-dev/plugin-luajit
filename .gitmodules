@@ -1,3 +1,6 @@
 [submodule "3rd/LuaJIT"]
 	path = 3rd/LuaJIT
 	url = https://github.com/LuaJIT/LuaJIT.git
+[submodule "3rd/sol2"]
+	path = 3rd/sol2
+	url = https://github.com/ThePhD/sol2.git
