@@ -23,64 +23,64 @@ sol::state _register_usertype() {
     /* ---- 枚举绑定 ---- */
     // 3rd\baltam_sdk\include\bex\bex.h#L56
     lua.new_enum("bxComplexity",
-        "bxREAL",    bxREAL,
-        "bxCOMPLEX", bxCOMPLEX
+        "REAL",    bxREAL,
+        "COMPLEX", bxCOMPLEX
     );
     // 3rd\baltam_sdk\include\bex\bex.h#L58
     lua.new_enum("bxClassID",
-        "bxUNKNOWN_CLASS",  bxUNKNOWN_CLASS,
-        "bxINT_CLASS",      bxINT_CLASS,
-        "bxINT64_CLASS",    bxINT64_CLASS,
-        "bxDOUBLE_CLASS",   bxDOUBLE_CLASS,
-        "bxSINGLE_CLASS",   bxSINGLE_CLASS,
-        "bxCHAR_CLASS",     bxCHAR_CLASS,
-        "bxLOGICAL_CLASS",  bxLOGICAL_CLASS,
-        "bxSTRUCT_CLASS",   bxSTRUCT_CLASS,
-        "bxSTRING_CLASS",   bxSTRING_CLASS,
-        "bxEXTERN_CLASS",   bxEXTERN_CLASS,
-        "bxCELL_CLASS",     bxCELL_CLASS
+        "UNKNOWN_CLASS",  bxUNKNOWN_CLASS,
+        "INT_CLASS",      bxINT_CLASS,
+        "INT64_CLASS",    bxINT64_CLASS,
+        "DOUBLE_CLASS",   bxDOUBLE_CLASS,
+        "SINGLE_CLASS",   bxSINGLE_CLASS,
+        "CHAR_CLASS",     bxCHAR_CLASS,
+        "LOGICAL_CLASS",  bxLOGICAL_CLASS,
+        "STRUCT_CLASS",   bxSTRUCT_CLASS,
+        "STRING_CLASS",   bxSTRING_CLASS,
+        "EXTERN_CLASS",   bxEXTERN_CLASS,
+        "CELL_CLASS",     bxCELL_CLASS
     );
     // 3rd\baltam_sdk\include\bex\bex.h#L70
     lua.new_enum("bxFHandleType",
-        "bxFH_UNKNOWN",     bxFH_UNKNOWN,
-        "bxFH_ANONYMOUS",   bxFH_ANONYMOUS,
-        "bxFH_VARIABLE",    bxFH_VARIABLE,
-        "bxFH_BUILTIN",     bxFH_BUILTIN,
-        "bxFH_MFUNCTION",   bxFH_MFUNCTION,
-        "bxFH_SCRIPT",      bxFH_SCRIPT
+        "FH_UNKNOWN",     bxFH_UNKNOWN,
+        "FH_ANONYMOUS",   bxFH_ANONYMOUS,
+        "FH_VARIABLE",    bxFH_VARIABLE,
+        "FH_BUILTIN",     bxFH_BUILTIN,
+        "FH_MFUNCTION",   bxFH_MFUNCTION,
+        "FH_SCRIPT",      bxFH_SCRIPT
     );
 
     // 3rd\baltam_sdk\include\bex\bx_op.h#L26
     lua.new_enum("bxOperatorID",
-        "bxUNKNOWN_OP", bxUNKNOWN_OP,
+        "UNKNOWN_OP", bxUNKNOWN_OP,
         // 双目运算符
-        "bxADD_OP", bxADD_OP,
-        "bxSUB_OP", bxSUB_OP,
-        "bxTIMES_OP", bxTIMES_OP,
-        "bxRDIV_OP", bxRDIV_OP,
-        "bxLDIV_OP", bxLDIV_OP,
-        "bxMTIMES_OP", bxMTIMES_OP,
-        "bxMRDIV_OP", bxMRDIV_OP,
-        "bxMLDIV_OP", bxMLDIV_OP,
-        "bxPOW_OP", bxPOW_OP,
-        "bxMPOW_OP", bxMPOW_OP,
-        "bxLT_OP", bxLT_OP,
-        "bxGT_OP", bxGT_OP,
-        "bxLE_OP", bxLE_OP,
-        "bxGE_OP", bxGE_OP,
-        "bxNE_OP", bxNE_OP,
-        "bxEQ_OP", bxEQ_OP,
-        "bxAND_OP", bxAND_OP,
-        "bxOR_OP", bxOR_OP,
-        "bxHCAT_OP", bxHCAT_OP,
-        "bxVCAT_OP", bxVCAT_OP,
+        "ADD_OP", bxADD_OP,
+        "SUB_OP", bxSUB_OP,
+        "TIMES_OP", bxTIMES_OP,
+        "RDIV_OP", bxRDIV_OP,
+        "LDIV_OP", bxLDIV_OP,
+        "MTIMES_OP", bxMTIMES_OP,
+        "MRDIV_OP", bxMRDIV_OP,
+        "MLDIV_OP", bxMLDIV_OP,
+        "POW_OP", bxPOW_OP,
+        "MPOW_OP", bxMPOW_OP,
+        "LT_OP", bxLT_OP,
+        "GT_OP", bxGT_OP,
+        "LE_OP", bxLE_OP,
+        "GE_OP", bxGE_OP,
+        "NE_OP", bxNE_OP,
+        "EQ_OP", bxEQ_OP,
+        "AND_OP", bxAND_OP,
+        "OR_OP", bxOR_OP,
+        "HCAT_OP", bxHCAT_OP,
+        "VCAT_OP", bxVCAT_OP,
         // 单目运算符
-        "bxUMINUS_OP", bxUMINUS_OP,
-        "bxUPLUS_OP", bxUPLUS_OP,
-        "bxNOT_OP", bxNOT_OP,
-        "bxTRANSP_OP", bxTRANSP_OP,
-        "bxCTRANSP_OP", bxCTRANSP_OP,
-        "bxSUBSIND_OP", bxSUBSIND_OP
+        "UMINUS_OP", bxUMINUS_OP,
+        "UPLUS_OP", bxUPLUS_OP,
+        "NOT_OP", bxNOT_OP,
+        "TRANSP_OP", bxTRANSP_OP,
+        "CTRANSP_OP", bxCTRANSP_OP,
+        "SUBSIND_OP", bxSUBSIND_OP
         // 三目运算符
     );
 
