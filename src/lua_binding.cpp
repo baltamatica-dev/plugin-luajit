@@ -203,7 +203,7 @@ sol::state _register_usertype() {
         [](bxArray* arr, baSize Nzmax) {
             /* return void */ bxSetNzmax(arr, Nzmax); };
     lua_bxArray["bxSparseFinalize"] =
-        [](const bxArray* arr) {
+        [](bxArray* arr) {
             /* return void */ bxSparseFinalize(arr); };
 
     /* ==== 函数句柄 ==== */
