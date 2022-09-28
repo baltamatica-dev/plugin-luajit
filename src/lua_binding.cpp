@@ -128,25 +128,25 @@ sol::state _register_usertype() {
 
     /* ==== 创建、修改和删除 ==== */
     // 创建数据类型实例
-    lua["bxCreateDoubleMatrix"] = bxCreateDoubleMatrix;
-    lua["bxCreateNumericMatrix"] = bxCreateNumericMatrix;
-    lua["bxCreateLogicalMatrix"] = bxCreateLogicalMatrix;
-    lua["bxCreateCharMatrixFromStrings"] = bxCreateCharMatrixFromStrings;
-    lua["bxCreateString"] = bxCreateString;
-    lua["bxCreateStringObj"] = bxCreateStringObj;
-    lua["bxCreateStructMatrix"] = bxCreateStructMatrix;
-    lua["bxCreateCellMatrix"] = bxCreateCellMatrix;
-    lua["bxCreateStringMatrix"] = bxCreateStringMatrix;
-    lua["bxCreateStringMatrixFromStrings"] = bxCreateStringMatrixFromStrings;
-    lua["bxCreateInt32Scalar"] = bxCreateInt32Scalar;
-    lua["bxCreateInt64Scalar"] = bxCreateInt64Scalar;
-    lua["bxCreateDoubleScalar"] = bxCreateDoubleScalar;
-    lua["bxCreateSingleScalar"] = bxCreateSingleScalar;
-    lua["bxCreateComplexDoubleScalar"] = bxCreateComplexDoubleScalar;
-    lua["bxCreateComplexSingleScalar"] = bxCreateComplexSingleScalar;
-    // lua["bxCreateCharScalar"] = bxCreateCharScalar;
-    lua["bxCreateLogicalScalar"] = bxCreateLogicalScalar;
-    lua["bxCreateStringScalar"] = bxCreateStringScalar;
+    lua["CreateDoubleMatrix"] = bxCreateDoubleMatrix;
+    lua["CreateNumericMatrix"] = bxCreateNumericMatrix;
+    lua["CreateLogicalMatrix"] = bxCreateLogicalMatrix;
+    lua["CreateCharMatrixFromStrings"] = bxCreateCharMatrixFromStrings;
+    lua["CreateString"] = bxCreateString;
+    lua["CreateStringObj"] = bxCreateStringObj;
+    lua["CreateStructMatrix"] = bxCreateStructMatrix;
+    lua["CreateCellMatrix"] = bxCreateCellMatrix;
+    lua["CreateStringMatrix"] = bxCreateStringMatrix;
+    lua["CreateStringMatrixFromStrings"] = bxCreateStringMatrixFromStrings;
+    lua["CreateInt32Scalar"] = bxCreateInt32Scalar;
+    lua["CreateInt64Scalar"] = bxCreateInt64Scalar;
+    lua["CreateDoubleScalar"] = bxCreateDoubleScalar;
+    lua["CreateSingleScalar"] = bxCreateSingleScalar;
+    lua["CreateComplexDoubleScalar"] = bxCreateComplexDoubleScalar;
+    lua["CreateComplexSingleScalar"] = bxCreateComplexSingleScalar;
+    // lua["CreateCharScalar"] = bxCreateCharScalar;
+    lua["CreateLogicalScalar"] = bxCreateLogicalScalar;
+    lua["CreateStringScalar"] = bxCreateStringScalar;
 
     // 复制与删除
     lua_bxArray["bxDuplicateArray"] = [](const bxArray* arr) { return bxDuplicateArray(arr); };
