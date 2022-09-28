@@ -4,7 +4,7 @@
 
 /// 插件根目录
 fs::path _plugin_dll_path;
-/// lua 脚本木偶
+/// lua 脚本目录
 fs::path _plugin_lua_path;
 
 
