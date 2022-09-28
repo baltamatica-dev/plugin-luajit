@@ -111,16 +111,16 @@ sol::state _register_usertype() {
     lua_bxArray["_bxAsCStr"] = [](const bxArray* arr, char* cPtr, baSize size) { return bxAsCStr(arr, cPtr, size); };
 
     // [bool] 类型判断函数
-    lua_bxArray["isInt32Type"] = [](const bxArray* arr) { return bxIsInt32(arr); };
-    lua_bxArray["isInt64Type"] = [](const bxArray* arr) { return bxIsInt64(arr); };
-    lua_bxArray["isDoubleType"] = [](const bxArray* arr) { return bxIsDouble(arr); };
-    lua_bxArray["isSingleType"] = [](const bxArray* arr) { return bxIsSingle(arr); };
-    lua_bxArray["isComplexType"] = [](const bxArray* arr) { return bxIsComplex(arr); };
-    lua_bxArray["isCharType"] = [](const bxArray* arr) { return bxIsChar(arr); };
-    lua_bxArray["isLogicalType"] = [](const bxArray* arr) { return bxIsLogical(arr); };
-    lua_bxArray["isStringType"] = [](const bxArray* arr) { return bxIsString(arr); };
-    lua_bxArray["isStructType"] = [](const bxArray* arr) { return bxIsStruct(arr); };
-    lua_bxArray["isCellType"] = [](const bxArray* arr) { return bxIsCell(arr); };
+    lua_bxArray["isInt32"] = [](const bxArray* arr) { return bxIsInt32(arr); };
+    lua_bxArray["isInt64"] = [](const bxArray* arr) { return bxIsInt64(arr); };
+    lua_bxArray["isDouble"] = [](const bxArray* arr) { return bxIsDouble(arr); };
+    lua_bxArray["isSingle"] = [](const bxArray* arr) { return bxIsSingle(arr); };
+    lua_bxArray["isComplex"] = [](const bxArray* arr) { return bxIsComplex(arr); };
+    lua_bxArray["isChar"] = [](const bxArray* arr) { return bxIsChar(arr); };
+    lua_bxArray["isLogical"] = [](const bxArray* arr) { return bxIsLogical(arr); };
+    lua_bxArray["isString"] = [](const bxArray* arr) { return bxIsString(arr); };
+    lua_bxArray["isStruct"] = [](const bxArray* arr) { return bxIsStruct(arr); };
+    lua_bxArray["isCell"] = [](const bxArray* arr) { return bxIsCell(arr); };
     lua_bxArray["isRealDouble"] = [](const bxArray* arr) { return bxIsRealDouble(arr); };
     lua_bxArray["isRealSingle"] = [](const bxArray* arr) { return bxIsRealSingle(arr); };
     lua_bxArray["isComplexDouble"] = [](const bxArray* arr) { return bxIsComplexDouble(arr); };
