@@ -121,6 +121,10 @@ sol::state _register_usertype() {
     lua_bxArray["isStringType"] = [](const bxArray* arr) { return bxIsString(arr); };
     lua_bxArray["isStructType"] = [](const bxArray* arr) { return bxIsStruct(arr); };
     lua_bxArray["isCellType"] = [](const bxArray* arr) { return bxIsCell(arr); };
+    lua_bxArray["isRealDouble"] = [](const bxArray* arr) { return bxIsRealDouble(arr); };
+    lua_bxArray["isRealSingle"] = [](const bxArray* arr) { return bxIsRealSingle(arr); };
+    lua_bxArray["isComplexDouble"] = [](const bxArray* arr) { return bxIsComplexDouble(arr); };
+    lua_bxArray["isComplexSingle"] = [](const bxArray* arr) { return bxIsComplexSingle(arr); };
 
     /* ==== 创建、修改和删除 ==== */
     // 创建数据类型实例
