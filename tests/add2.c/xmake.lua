@@ -1,4 +1,4 @@
-target("add2.c")
+target("add2-c")
 
     -- 编译为动态链接库
     set_kind("shared")

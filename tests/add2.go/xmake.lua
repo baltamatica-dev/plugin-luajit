@@ -1,4 +1,4 @@
-target("add2.go")
+target("add2-go")
     set_languages("golang")
 
     -- 编译为动态链接库

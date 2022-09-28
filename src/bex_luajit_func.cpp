@@ -31,7 +31,13 @@ void luajit_ffi_call(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[])
         sol::lib::ffi
     );
 
-    // 设置 lua 加载路径。将 _plugin_lua_path 添加到搜索路径
+    // 设置 ffi .dll 加载路径。将 _plugin_dll_path 添加到搜索路径
+    const std::string package_cpath = lua["package"]["cpath"];
+    lua["package"]["cpath"] = package_cpath
+        + (!package_cpath.empty() ? ";" : "")
+        + _plugin_dll_path.generic_string() + "/?.dll";
+
+    // 设置 .lua 加载路径。将 _plugin_lua_path 添加到搜索路径
     const std::string package_path = lua["package"]["path"];
     lua["package"]["path"] = package_path
         + (!package_path.empty() ? ";" : "")

@@ -15,11 +15,20 @@ end
 
 -- Test02: C 共享库调用
 function CAdd2 (a, b)
-    local lib_name = "libadd2.c.dll"
-    local dll_path = _bex.dll_root_path.."/"..lib_name
-    print("dll_path=", dll_path)
+    print("--- test ffi:CAdd2")
+    
+    local lib_name = "libadd2-c"
+    local dll_path = package.searchpath(lib_name, package.cpath)
+    if nil == dll_path then
+        print("[error] cannot load dll: ", lib_name)
+        return
+    else
+        print("dll_path=", dll_path)
+    end
+
     print("loading dll...")
     local lib = ffi.load(dll_path)
+    -- print("lib=", lib)
 
     ffi.cdef"int sum(const int x, const int y);"
     return lib.sum(a, b)
@@ -55,7 +64,7 @@ function main ()
     print("bxComplexity.bxCOMPLEX=", bxComplexity.COMPLEX)
     
     bxArray_test ()
-    -- print(CAdd2(1, 2))
+    print(CAdd2(1, 2))
 
     -- TODO: 可以正确计算。但是会 crash
     -- test3: load go dll
