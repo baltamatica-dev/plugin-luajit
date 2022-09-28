@@ -88,7 +88,7 @@ luajit_version  显示插件版本信息
     Copyright (c) 2022 Chengyu HAN
 
 版本信息
-    bex SDK: 20220323
+    bex SDK: 2022-08-29
     [MIT] plugin-luajit (master)
     [MIT] LuaJIT (03080b7)
     [MIT] sol2 (4de99c5)

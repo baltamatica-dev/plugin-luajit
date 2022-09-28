@@ -2,7 +2,7 @@
 
 ## 依赖
 
-- bex SDK: 20220323
+- bex SDK: 2022-08-29
 - [[MIT]][LuaJIT-MIT] [LuaJIT][] (版本见 gitmodules): 
     Lua 的 JIT 实现，自带 ffi
 - [[MIT]][sol2-MIT] [sol2][] (版本见 gitmodules): 
