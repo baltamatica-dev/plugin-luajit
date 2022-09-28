@@ -3,9 +3,9 @@
 
 
 const char* luajit_ffi_call_help = R"(
-luajit_ffi_call 通过 LuaJIT ffi 动态加载 C 函数.
+luajit::ffi_call 通过 LuaJIT ffi 动态加载 C 函数.
 
-    luajit_ffi_call(lib_name, func_name, 'arg_type', arg_val, ...)
+    luajit::ffi_call(lib_name, func_name, 'arg_type', arg_val, ...)
 )"; /* luajit_ffi_call_help */
 
 /**

@@ -49,22 +49,22 @@ bexfun_info_t * bxPluginFunctions() {
     bexfun_info_t* func_list_dyn = new bexfun_info_t[TOTAL_PLUGIN_FUNCTIONS + 1];
 
     size_t i = 0;
-    func_list_dyn[i].name = "luajit_version";
+    func_list_dyn[i].name = "luajit::version";
     func_list_dyn[i].ptr  = luajit_version;
     func_list_dyn[i].help = luajit_version_help;
 
     i++;
-    func_list_dyn[i].name = "luajit_test_eval_str";
+    func_list_dyn[i].name = "luajit::test_eval_str";
     func_list_dyn[i].ptr  = luajit_test_eval_str;
     func_list_dyn[i].help = luajit_test_eval_str_help;
 
     i++;
-    func_list_dyn[i].name = "luajit_test_eval_lua_file";
+    func_list_dyn[i].name = "luajit::test_eval_lua_file";
     func_list_dyn[i].ptr  = luajit_test_eval_lua_file;
     func_list_dyn[i].help = luajit_test_eval_lua_file_help;
 
     i++;
-    func_list_dyn[i].name = "luajit_ffi_call";
+    func_list_dyn[i].name = "luajit::ffi_call";
     func_list_dyn[i].ptr  = luajit_ffi_call;
     func_list_dyn[i].help = luajit_ffi_call_help;
 
@@ -80,7 +80,7 @@ bexfun_info_t * bxPluginFunctions() {
 
 
 const char* luajit_version_help = R"(
-luajit_version  显示插件版本信息
+luajit::version  显示插件版本信息
 
     LuaJIT 插件
     Github:     https://github.com/baltamatica-dev/plugin-luajit

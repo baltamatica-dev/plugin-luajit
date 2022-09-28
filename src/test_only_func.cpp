@@ -7,13 +7,13 @@
  * 在 `help func_name` 时显示
  */
 const char* luajit_test_eval_str_help = R"(
-luajit_test_eval_str [测试函数] 测试从字符串执行 lua 脚本.
+luajit::test_eval_str [测试函数] 测试从字符串执行 lua 脚本.
 
-    luajit_test_eval_str(a, b) = a + b
+    luajit::test_eval_str(a, b) = a + b
     a,b 为 double, 对输入参数求和
 
 示例：
-    luajit_test_eval_str(1,2) == 3
+    luajit::test_eval_str(1,2) == 3
 
 ## dev note
 测试用 lua 函数:
@@ -62,20 +62,20 @@ void luajit_test_eval_str(int nlhs, bxArray *plhs[], int nrhs, const bxArray *pr
 
 
 const char* luajit_test_eval_lua_file_help = R"(
-luajit_test_eval_lua_file [测试函数] 测试从脚本加载并执行 lua 函数.
+luajit::test_eval_lua_file [测试函数] 测试从脚本加载并执行 lua 函数.
 
-    luajit_test_eval_lua_file(a, b)
+    luajit::test_eval_lua_file(a, b)
         输入 a,b 为 double;
         返回 double
 
 默认示例：
-    luajit_test_eval_lua_file(1,2) == 3
+    luajit::test_eval_lua_file(1,2) == 3
 
 ## dev note
 测试用 lua 文件为: `luabundle/lua_func.lua`.
 默认内容为:
 
-    -- luajit_test_eval_lua_file 函数调用的测试文件
+    -- luajit::test_eval_lua_file 函数调用的测试文件
     function lua_add2 (a, b)
         local c = a + b - 1
         print("lua-print-test")
