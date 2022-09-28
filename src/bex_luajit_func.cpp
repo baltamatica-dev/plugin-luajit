@@ -30,6 +30,13 @@ void luajit_ffi_call(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[])
         sol::lib::base, sol::lib::package,
         sol::lib::ffi
     );
+
+    // 设置 lua 加载路径。将 _plugin_lua_path 添加到搜索路径
+    const std::string package_path = lua["package"]["path"];
+    lua["package"]["path"] = package_path
+        + (!package_path.empty() ? ";" : "")
+        + _plugin_lua_path.generic_string() + "/?.lua";
+
     // std::string lib_path = bxGetStringDataPr(prhs[0]);
     // -- 为 lua 脚本注入全局变量
     lua["_bex"] = lua.create_table_with("dll_root_path", _plugin_dll_path.generic_string());

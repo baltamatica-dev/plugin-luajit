@@ -4,6 +4,8 @@
 
 -- Lua JIT ffi
 local ffi = require("ffi")
+require("bxArray")
+
 
 -- windows only. 弹窗
 function MessageBoxA ()
