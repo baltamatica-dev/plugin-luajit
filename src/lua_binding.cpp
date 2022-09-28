@@ -176,6 +176,36 @@ sol::state _register_usertype() {
         [](bxArray* arr, baIndex index, const char* newStr) {
             /* return void */ bxSetString(arr, index, newStr); };
 
+    /* ==== 稀疏矩阵 ==== */
+    // 新建
+    lua["CreateSparse"] = bxCreateSparse;
+    lua["CreateSparseNumericMatrix"] = bxCreateSparseNumericMatrix;
+    lua["CreateSparseLogicalMatrix"] = bxCreateSparseLogicalMatrix;
+    // 类型判断
+    lua_bxArray["isSparse"] = [](const bxArray* arr) { return bxIsSparse(arr); };
+    lua_bxArray["isSparseRealDouble"] = [](const bxArray* arr) { return bxIsSparseRealDouble(arr); };
+    lua_bxArray["isSparseRealSingle"] = [](const bxArray* arr) { return bxIsSparseRealSingle(arr); };
+    lua_bxArray["isSparseComplexDouble"] = [](const bxArray* arr) { return bxIsSparseComplexDouble(arr); };
+    lua_bxArray["isSparseComplexSingle"] = [](const bxArray* arr) { return bxIsSparseComplexSingle(arr); };
+    lua_bxArray["isSparseLogical"] = [](const bxArray* arr) { return bxIsSparseLogical(arr); };
+    // 获取指针
+    lua_bxArray["bxGetSparseDoubles"] = [](const bxArray* arr) { return bxGetSparseDoubles(arr); };
+    lua_bxArray["bxGetSparseSingles"] = [](const bxArray* arr) { return bxGetSparseSingles(arr); };
+    lua_bxArray["bxGetSparseComplexDoubles"] = [](const bxArray* arr) { return bxGetSparseComplexDoubles(arr); };
+    lua_bxArray["bxGetSparseComplexSingles"] = [](const bxArray* arr) { return bxGetSparseComplexSingles(arr); };
+    lua_bxArray["bxGetSparseLogicals"] = [](const bxArray* arr) { return bxGetSparseLogicals(arr); };
+    lua_bxArray["bxGetIr"] = [](const bxArray* arr) { return bxGetIr(arr); };
+    lua_bxArray["bxGetJc"] = [](const bxArray* arr) { return bxGetJc(arr); };
+    lua_bxArray["bxGetNnz"] = [](const bxArray* arr) { return bxGetNnz(arr); };
+    lua_bxArray["bxGetNzmax"] = [](const bxArray* arr) { return bxGetNzmax(arr); };
+    // 修改、销毁
+    lua_bxArray["bxSetNzmax"] =
+        [](bxArray* arr, baSize Nzmax) {
+            /* return void */ bxSetNzmax(arr, Nzmax); };
+    lua_bxArray["bxSparseFinalize"] =
+        [](const bxArray* arr) {
+            /* return void */ bxSparseFinalize(arr); };
+
     /* ==== 辅助函数 ==== */
     lua["bxPrintf"] = bxPrintf;
     lua["bxErrMsgTxt"] = bxErrMsgTxt;
