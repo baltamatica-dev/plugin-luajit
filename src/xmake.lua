@@ -4,13 +4,13 @@ target("luajit")
     set_kind("shared")
 
     -- [[  添加头文件搜索路径  ]]
-    add_includedirs("$(projectdir)/3rd/baltam_sdk/include")
+    add_includedirs("$(projectdir)/3rd/bex_inc/include")
     add_includedirs("$(projectdir)/3rd/sol2/include")
     add_includedirs("$(projectdir)/3rd/LuaJIT/src")
 
     -- [[  linker flags  ]]
     -- bex
-    add_linkdirs("$(projectdir)/3rd/baltam_sdk/lib")
+    add_linkdirs("$(projectdir)/3rd/bex_inc/lib")
     add_links("bex")
     -- luaJIT
     add_linkdirs("$(projectdir)/3rd/LuaJIT/src")

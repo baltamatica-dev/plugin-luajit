@@ -7,9 +7,7 @@ namespace fs = std::filesystem;
 #define SOL_ALL_SAFETIES_ON 1
 #include <sol/sol.hpp>
 // bex 头文件
-#include <bex/bex.hpp>
-// 导入 baltam 命名空间.
-using namespace baltam;
+#include <bex/bex.h>
 #include "lua_binding.hpp"
 
 
