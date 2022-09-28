@@ -206,6 +206,11 @@ sol::state _register_usertype() {
         [](const bxArray* arr) {
             /* return void */ bxSparseFinalize(arr); };
 
+    /* ==== 函数句柄 ==== */
+    lua_bxArray["bxIsFunctionHandle"] = [](const bxArray* arr) { return bxIsFunctionHandle(arr); };
+    lua_bxArray["bxGetFunctionHandleType"] = [](const bxArray* arr) { return bxGetFunctionHandleType(arr); };
+    lua_bxArray["bxGetFunctionHandleData"] = [](const bxArray* arr) { return bxGetFunctionHandleData(arr); };
+
     /* ==== 辅助函数 ==== */
     lua["bxPrintf"] = bxPrintf;
     lua["bxErrMsgTxt"] = bxErrMsgTxt;
