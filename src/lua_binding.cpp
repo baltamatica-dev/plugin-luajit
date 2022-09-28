@@ -6,7 +6,7 @@ sol::state _register_usertype() {
 
     /* ---- 类型绑定 ---- */
 
-    // 3rd\baltam_sdk\include\bex\bex.h#L50
+    // 3rd\baltam_sdk\include\bex\bex.h#L51
     sol::usertype<bxArray> lua_bxArray =
         lua.new_usertype<bxArray>(
             "bxArray",
@@ -21,12 +21,12 @@ sol::state _register_usertype() {
     );
 
     /* ---- 枚举绑定 ---- */
-    // 3rd\baltam_sdk\include\bex\bex.h#L54
+    // 3rd\baltam_sdk\include\bex\bex.h#L56
     lua.new_enum("bxComplexity",
         "bxREAL",    bxREAL,
         "bxCOMPLEX", bxCOMPLEX
     );
-    // 3rd\baltam_sdk\include\bex\bex.h#L59
+    // 3rd\baltam_sdk\include\bex\bex.h#L58
     lua.new_enum("bxClassID",
         "bxUNKNOWN_CLASS",  bxUNKNOWN_CLASS,
         "bxINT_CLASS",      bxINT_CLASS,
@@ -40,6 +40,16 @@ sol::state _register_usertype() {
         "bxEXTERN_CLASS",   bxEXTERN_CLASS,
         "bxCELL_CLASS",     bxCELL_CLASS
     );
+    // 3rd\baltam_sdk\include\bex\bex.h#L70
+    lua.new_enum("bxFHandleType",
+        "bxFH_UNKNOWN",     bxFH_UNKNOWN,
+        "bxFH_ANONYMOUS",   bxFH_ANONYMOUS,
+        "bxFH_VARIABLE",    bxFH_VARIABLE,
+        "bxFH_BUILTIN",     bxFH_BUILTIN,
+        "bxFH_MFUNCTION",   bxFH_MFUNCTION,
+        "bxFH_SCRIPT",      bxFH_SCRIPT
+    );
+
     // 3rd\baltam_sdk\include\bex\bx_op.h#L26
     lua.new_enum("bxOperatorID",
         "bxUNKNOWN_OP", bxUNKNOWN_OP,
