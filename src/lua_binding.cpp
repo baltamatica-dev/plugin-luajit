@@ -93,6 +93,7 @@ sol::state _register_usertype() {
     lua_bxArray["getN"] = [](const bxArray* arr) { return bxGetN(arr); };
     lua_bxArray["getStringLen"] = [](const bxArray* arr) { return bxGetStringLen(arr); };
     lua_bxArray["getStringLenAtIndex"] = [](const bxArray* arr, baIndex inx) { return bxGetStringLength(arr, inx); };
+    // 获取数据类型指针
     lua_bxArray["_bxGetPr"] = [](const bxArray* arr) { return bxGetPr(arr); };
     lua_bxArray["_bxGetInt32s"] = [](const bxArray* arr) { return bxGetInt32s(arr); };
     lua_bxArray["_bxGetInt64s"] = [](const bxArray* arr) { return bxGetInt64s(arr); };
@@ -103,10 +104,10 @@ sol::state _register_usertype() {
     lua_bxArray["_bxGetChars"] = [](const bxArray* arr) { return bxGetChars(arr); };
     lua_bxArray["_bxGetLogicals"] = [](const bxArray* arr) { return bxGetLogicals(arr); };
     lua_bxArray["getString"] = [](const bxArray* arr) { return bxGetStringDataPr(arr); };
-    lua_bxArray["getStringAtIndex"] = [](const bxArray* arr, baIndex inx) { return bxGetString(arr, inx); };
-    lua_bxArray["getNumberOfFields"] = [](const bxArray* arr) { return bxGetNumberOfFields(arr); };
     lua_bxArray["_bxGetField"] = [](const bxArray* arr, baIndex inx, const char* fname) { return bxGetField(arr, inx, fname); };
+    lua_bxArray["getNumberOfFields"] = [](const bxArray* arr) { return bxGetNumberOfFields(arr); };
     lua_bxArray["_bxGetCell"] = [](const bxArray* arr, baIndex inx) { return bxGetCell(arr, inx); };
+    lua_bxArray["getStringAtIndex"] = [](const bxArray* arr, baIndex inx) { return bxGetString(arr, inx); };
     lua_bxArray["_bxAsInt"] = [](const bxArray* arr, int* flagOrIndex) { return bxAsInt(arr, flagOrIndex); };
     lua_bxArray["_bxAsCStr"] = [](const bxArray* arr, char* cPtr, baSize size) { return bxAsCStr(arr, cPtr, size); };
 
