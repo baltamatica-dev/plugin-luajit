@@ -41,28 +41,7 @@ function bxArray_test ()
     print("_bex.nlhs    =", _bex.nlhs)
     print("_bex.nrhs    =", _bex.nrhs)
     if (_bex.nrhs > 0) then
-        print("_bex.prhs0   =", _bex.prhs0)
-        print("_bex.prhs0.isInt32Type()     =", _bex.prhs0:isInt32Type())
-        print("_bex.prhs0.isInt64Type()     =", _bex.prhs0:isInt64Type())
-        print("_bex.prhs0.isDoubleType()    =", _bex.prhs0:isDoubleType())
-        print("_bex.prhs0.isSingleType()    =", _bex.prhs0:isSingleType())
-        print("_bex.prhs0.isComplexType()   =", _bex.prhs0:isComplexType())
-        print("_bex.prhs0.isCharType()      =", _bex.prhs0:isCharType())
-        print("_bex.prhs0.isLogicalType()   =", _bex.prhs0:isLogicalType())
-        print("_bex.prhs0.isStringType()    =", _bex.prhs0:isStringType())
-        print("_bex.prhs0.isStructType()    =", _bex.prhs0:isStructType())
-        print("_bex.prhs0.isCellType()      =", _bex.prhs0:isCellType())
-        print()
-
-        print("_bex.prhs0.getClassID()      =", _bex.prhs0:getClassID())
-        print("_bex.prhs0.getType()         =", _bex.prhs0:getType())
-
-        print("_bex.prhs0.getStringLen()    =", _bex.prhs0:getStringLen())
-        print("_bex.prhs0.getStringLenAtIndex(1) =", _bex.prhs0:getStringLenAtIndex(1))
-        print("_bex.prhs0._bxGetChars()     =", _bex.prhs0:_bxGetChars())
-        print("_bex.prhs0.getString()       =", _bex.prhs0:getString())
-        print("_bex.prhs0.getStringAtIndex(1)   =", _bex.prhs0:getStringAtIndex(1))
-        print("bex.prhs0.getNumberOfFields()    =", _bex.prhs0:getNumberOfFields())
+        CheckBxArrayType(_bex.prhs0)
     end
 end
 
@@ -73,7 +52,7 @@ function main ()
     -- test2: 加载 dll
     print("test2")
     print("bxComplexity=", bxComplexity)
-    print("bxComplexity.bxCOMPLEX=", bxComplexity.bxCOMPLEX)
+    print("bxComplexity.bxCOMPLEX=", bxComplexity.COMPLEX)
     
     bxArray_test ()
     -- print(CAdd2(1, 2))
