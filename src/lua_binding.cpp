@@ -239,5 +239,9 @@ sol::state _register_usertype() {
     // 反向导出 bxPluginFunctions 方便查询元信息
     lua["bxPluginFunctions"] = bxPluginFunctions;
 
+    /* ==== 向内核和前端的轮询函数 ==== */
+    lua["bxK2FQuery"] = bxK2FQuery;
+    lua["bxF2KQuery"] = bxF2KQuery;
+
     return lua;
 } /* _register_usertype */
