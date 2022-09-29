@@ -63,7 +63,7 @@ void luajit_call_lua_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *pr
         return;
     }
 
-    /** ---- 获取输入参数 ---- */
+    /** ---- 初始化 lua 环境 ---- */
     sol::state lua = new_bex_lua(nlhs, plhs, nrhs, prhs);
 
     /** ---- 主体函数计算 ---- */
