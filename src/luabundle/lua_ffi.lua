@@ -50,7 +50,7 @@ function bxArray_test ()
     print("_bex.nlhs    =", _bex.nlhs)
     print("_bex.nrhs    =", _bex.nrhs)
     if (_bex.nrhs > 0) then
-        CheckBxArrayType(_bex.prhs0)
+        CheckBxArrayType(getRhs(0))
     end
 end
 
@@ -65,9 +65,7 @@ function main ()
     
     bxArray_test ()
     print(CAdd2(1, 2))
-    
-    print("getRhs(0)=", getRhs(0))
-    print("getRhs(0)=_bex.prhs0", getRhs(0)==_bex.prhs0)
+
     
     local retArr = CreateDoubleScalar(1)
     print("retArr=", retArr)

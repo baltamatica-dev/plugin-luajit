@@ -50,7 +50,6 @@ void luajit_ffi_call(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[])
     lua["_bex"]["nlhs"] = nlhs;
     // lua["_bex"]["plhs"] = plhs;
     lua["_bex"]["nrhs"] = nrhs;
-    lua["_bex"]["prhs0"] = prhs[0];
     // 注入 prhs[] 获取函数
     lua.set_function("getRhs", [prhs](baIndex idx) { return prhs[idx]; });
     // 注入 plhs[] 赋值函数
