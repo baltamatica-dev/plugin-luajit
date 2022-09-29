@@ -3,4 +3,4 @@
 #include "bex_luajit.hpp"
 
 
-extern sol::state _register_usertype();
+extern sol::state bind_bextype();

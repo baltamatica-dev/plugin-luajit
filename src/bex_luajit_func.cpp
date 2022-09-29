@@ -20,7 +20,7 @@ void luajit_ffi_call(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[])
     /** ---- 输入参数检查 ---- */
 
     /** ---- 获取输入参数 ---- */
-    sol::state lua = _register_usertype();
+    sol::state lua = bind_bextype();
 
     /**
      * base, package, string, table, math, io, os, debug, count

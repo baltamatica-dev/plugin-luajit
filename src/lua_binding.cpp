@@ -1,7 +1,7 @@
 #include "lua_binding.hpp"
 
 
-sol::state _register_usertype() {
+sol::state bind_bextype() {
     sol::state lua;
 
     /* ---- 类型绑定 ---- */
@@ -244,4 +244,4 @@ sol::state _register_usertype() {
     lua["bxF2KQuery"] = bxF2KQuery;
 
     return lua;
-} /* _register_usertype */
+} /* bind_bextype */
