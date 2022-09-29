@@ -21,7 +21,7 @@ luajit::call_lua_file 通过 LuaJIT ffi 动态加载 C 函数.
  * @param prhs[]    输入参数数组
  */
 void luajit_call_lua_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[]) {
-    /** ---- 输入参数检查 ---- */
+    /** ---- 输入参数检查 && 获取输入参数 ---- */
     // 2+ 输入参数
     if( nrhs < 2 ) {
         std::cout << luajit_call_lua_file_help << std::endl;
@@ -29,12 +29,12 @@ void luajit_call_lua_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *pr
         return;
     };
     // 检查前 2 个参数的类型
-    const bxArray* lua_file = prhs[0];
+    const bxArray* lua_file_ptr = prhs[0];
     fs::path lua_file_path;
-    if (bxIsChar(lua_file)) {
-        lua_file_path = fs::path(bxGetChars(lua_file));
-    } else if (bxIsString(lua_file)) {
-        lua_file_path = fs::path(bxGetString(lua_file, 0));
+    if (bxIsChar(lua_file_ptr)) {
+        lua_file_path = fs::path(bxGetChars(lua_file_ptr));
+    } else if (bxIsString(lua_file_ptr)) {
+        lua_file_path = fs::path(bxGetString(lua_file_ptr, 0));
     } else {
         bxErrMsgTxt("lua_file 必须为字符数组或字符串");
         return;
