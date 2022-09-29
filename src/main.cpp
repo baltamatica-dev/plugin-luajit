@@ -90,6 +90,11 @@ bexfun_info_t * bxPluginFunctions() {
     func_list_dyn[i].help = luajit_test_eval_lua_file_help;
 
     i++;
+    func_list_dyn[i].name = "luajit::call_lua_file";
+    func_list_dyn[i].ptr  = luajit_call_lua_file;
+    func_list_dyn[i].help = luajit_call_lua_file_help;
+
+    i++;
     func_list_dyn[i].name = "luajit::ffi_call";
     func_list_dyn[i].ptr  = luajit_ffi_call;
     func_list_dyn[i].help = luajit_ffi_call_help;

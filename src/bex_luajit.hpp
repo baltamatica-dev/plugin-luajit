@@ -35,5 +35,8 @@ BALTAM_PLUGIN_FCN(luajit_test_eval_str);
 extern const char* luajit_test_eval_str_help;
 BALTAM_PLUGIN_FCN(luajit_test_eval_lua_file);
 extern const char* luajit_test_eval_lua_file_help;
+
+BALTAM_PLUGIN_FCN(luajit_call_lua_file);
+extern const char* luajit_call_lua_file_help;
 BALTAM_PLUGIN_FCN(luajit_ffi_call);
 extern const char* luajit_ffi_call_help;
