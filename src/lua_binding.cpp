@@ -16,6 +16,7 @@ void bind_oop_bextype(sol::state& lua) {
     // 3rd\baltam_sdk\include\bex\extern_fcn_type.h#L36
     lua.new_usertype<bexfun_info_t>(
         "bexfun_info_t",
+        sol::no_constructor,
         "name", &bexfun_info_t::name,
         "ptr",  &bexfun_info_t::ptr,
         "help", &bexfun_info_t::help
