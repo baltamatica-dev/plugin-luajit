@@ -5,7 +5,7 @@
 const char* luajit_call_lua_file_help = R"(
 luajit::call_lua_file 通过 LuaJIT ffi 动态加载 C 函数.
 
-    luajit::call_lua_file('lua_file', 'func_name', ...)
+    luajit::call_lua_file("lua_file", "func_name", ...)
         lua_file: str: 带 .lua 后缀; 支持完整路径
         func_name: str: 函数名
         ...: 其他传给脚本的参数
@@ -31,23 +31,19 @@ void luajit_call_lua_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *pr
     // 检查前 2 个参数的类型
     const bxArray* lua_file_ptr = prhs[0];
     fs::path lua_file;
-    if (bxIsChar(lua_file_ptr)) {
-        lua_file = fs::path(bxGetChars(lua_file_ptr));
-    } else if (bxIsString(lua_file_ptr)) {
+    if (bxIsString(lua_file_ptr)) {
         lua_file = fs::path(bxGetString(lua_file_ptr, 0));
     } else {
-        bxErrMsgTxt("lua_file 必须为字符数组或字符串");
+        bxErrMsgTxt("lua_file 必须为字符串");
         return;
     }
 
     const bxArray* func_name_ptr = prhs[1];
     std::string func_name;
-    if (bxIsChar(func_name_ptr)) {
-        func_name = std::string(bxGetChars(func_name_ptr));
-    } else if (bxIsString(func_name_ptr)) {
+    if (bxIsString(func_name_ptr)) {
         func_name = std::string(bxGetString(func_name_ptr, 0));
     } else {
-        bxErrMsgTxt("func_name 必须为字符数组或字符串");
+        bxErrMsgTxt("func_name 必须为字符串");
         return;
     }
 
