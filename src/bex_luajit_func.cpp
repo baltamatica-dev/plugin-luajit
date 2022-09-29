@@ -54,7 +54,7 @@ void luajit_ffi_call(int nlhs, bxArray *plhs[], int nrhs, const bxArray *prhs[])
     // 注入 prhs[] 获取函数
     lua.set_function("getRhs", [prhs](baIndex idx) { return prhs[idx]; });
     // 注入 plhs[] 赋值函数
-    lua.set_function("addLhs", [plhs](baIndex idx, bxArray* ret) { /* return void */ plhs[idx] = ret; });
+    lua.set_function("setLhs", [plhs](baIndex idx, bxArray* ret) { /* return void */ plhs[idx] = ret; });
 
     /** ---- 主体函数计算 ---- */
     fs::path lua_file = _plugin_lua_path / fs::path("lua_ffi.lua");

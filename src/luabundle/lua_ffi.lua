@@ -71,7 +71,7 @@ function main ()
     
     local retArr = CreateDoubleScalar(1)
     print("retArr=", retArr)
-    addLhs(0, retArr)
+    setLhs(0, retArr)
 
     -- TODO: 可以正确计算。但是会 crash
     -- test3: load go dll
