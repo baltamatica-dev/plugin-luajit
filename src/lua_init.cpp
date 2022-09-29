@@ -52,6 +52,7 @@ sol::state new_bex_lua(
     sol::state lua = sol::state();
     sol::state& lua_ref = lua;
 
+    bind_raw_bextype(lua_ref);
     bind_oop_bextype(lua_ref);
     lua_init(lua_ref);
     lua_bind_bex_params(lua_ref, nlhs, plhs, nrhs, prhs);
