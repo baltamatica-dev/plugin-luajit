@@ -5,10 +5,8 @@
  * @brief 绑定 bex 接口, 提供 lua 中易用的接口.
  */
 void bind_oop_bextype(sol::state& lua) {
-    // sol::state lua;
 
-    /* ---- 类型绑定 ---- */
-
+    /* ==== 类型绑定 ==== */
     // 3rd\baltam_sdk\include\bex\bex.h#L51
     sol::usertype<bxArray> lua_bxArray =
         lua.new_usertype<bxArray>(
@@ -23,7 +21,7 @@ void bind_oop_bextype(sol::state& lua) {
         "help", &bexfun_info_t::help
     );
 
-    /* ---- 枚举绑定 ---- */
+    /* ==== 枚举绑定 ==== */
     // 3rd\baltam_sdk\include\bex\bex.h#L56
     lua.new_enum("bxComplexity",
         "REAL",    bxREAL,
@@ -87,8 +85,7 @@ void bind_oop_bextype(sol::state& lua) {
         // 三目运算符
     );
 
-    /* ---- 函数绑定 ---- */
-
+    /* ==== 函数绑定 ==== */
     // 获取数据
     lua_bxArray["getClassID"] = [](const bxArray* arr) { return bxGetClassID(arr); };
     lua_bxArray["getType"] = [](const bxArray* arr) { return bxTypeCStr(arr); };
@@ -215,36 +212,9 @@ void bind_oop_bextype(sol::state& lua) {
     lua_bxArray["bxGetFunctionHandleData"] = [](const bxArray* arr) { return bxGetFunctionHandleData(arr); };
 
     /* ==== 辅助函数 ==== */
-    lua["bxPrintf"] = bxPrintf;
-    lua["bxErrMsgTxt"] = bxErrMsgTxt;
     lua_bxArray["_bxCalcSingleSubscript"] =
         [](const bxArray* arr, int indexOrFlag, baIndex* indexPtr) {
             return bxCalcSingleSubscript(arr, indexOrFlag, indexPtr); };
-
-    /* ==== bex 外部数、操作符据注册 ==== */
-    // 外部数注册
-    lua["bxRegisterCStruct"] = bxRegisterCStruct;
-    lua["bxGetCStruct"] = bxGetCStruct;
-    lua["bxCreateCStruct"] = bxCreateCStruct;
-    // 操作符据注册
-    lua["bxRegisterUnaryOperator"] = bxRegisterUnaryOperator;
-    lua["bxRegisterBinaryOperator"] = bxRegisterBinaryOperator;
-    lua["bxRegisterTernaryOperator"] = bxRegisterTernaryOperator;
-    lua["bxRegisterUnaryOperatorID"] = bxRegisterUnaryOperatorID;
-    lua["bxRegisterBinaryOperatorID"] = bxRegisterBinaryOperatorID;
-    lua["bxRegisterTernaryOperatorID"] = bxRegisterTernaryOperatorID;
-
-    /* ==== 插件函数原型 ==== */
-    //-- 以下是需要从 lua 导入 C++
-    // int bxPluginInitLib(void*);
-    // int bxPluginInit(int, const bxArray *[]);
-    // int bxPluginFini();
-    // 反向导出 bxPluginFunctions 方便查询元信息
-    lua["bxPluginFunctions"] = bxPluginFunctions;
-
-    /* ==== 向内核和前端的轮询函数 ==== */
-    lua["bxK2FQuery"] = bxK2FQuery;
-    lua["bxF2KQuery"] = bxF2KQuery;
 
 } /* bind_oop_bextype */
 
