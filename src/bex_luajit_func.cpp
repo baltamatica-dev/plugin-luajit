@@ -30,11 +30,11 @@ void luajit_call_lua_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *pr
     };
     // 检查前 2 个参数的类型
     const bxArray* lua_file_ptr = prhs[0];
-    fs::path lua_file_path;
+    fs::path lua_file;
     if (bxIsChar(lua_file_ptr)) {
-        lua_file_path = fs::path(bxGetChars(lua_file_ptr));
+        lua_file = fs::path(bxGetChars(lua_file_ptr));
     } else if (bxIsString(lua_file_ptr)) {
-        lua_file_path = fs::path(bxGetString(lua_file_ptr, 0));
+        lua_file = fs::path(bxGetString(lua_file_ptr, 0));
     } else {
         bxErrMsgTxt("lua_file 必须为字符数组或字符串");
         return;
@@ -52,13 +52,13 @@ void luajit_call_lua_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *pr
     }
 
     // 检查 lua 文件是否存在
-    if (fs::exists(lua_file_path)) {
+    if (fs::exists(lua_file)) {
         /* nothing todo. */
-    } else if (fs::exists(_plugin_lua_path / lua_file_path)) {
-        lua_file_path = _plugin_lua_path / lua_file_path;
+    } else if (fs::exists(_plugin_lua_path / lua_file)) {
+        lua_file = _plugin_lua_path / lua_file;
     } else {
-        std::cout << "已搜索: " << lua_file_path  << std::endl;
-        std::cout << "已搜索: " << _plugin_lua_path / lua_file_path  << std::endl;
+        std::cout << "已搜索: " << lua_file  << std::endl;
+        std::cout << "已搜索: " << _plugin_lua_path / lua_file  << std::endl;
         bxErrMsgTxt("未找到 lua_file");
         return;
     }
@@ -67,7 +67,7 @@ void luajit_call_lua_file(int nlhs, bxArray *plhs[], int nrhs, const bxArray *pr
     sol::state lua = new_bex_lua(nlhs, plhs, nrhs, prhs);
 
     /** ---- 主体函数计算 ---- */
-    lua.script_file(lua_file_path.generic_string());
+    lua.script_file(lua_file.generic_string());
 
     auto _lua_func = lua[func_name];
     if (!_lua_func.valid()) {
