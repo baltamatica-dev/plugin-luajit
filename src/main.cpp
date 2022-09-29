@@ -38,6 +38,22 @@ int bxPluginFini() {
     return 0;
 } /* bxPluginFini */
 
+int addBexFunctions(bexfun_info_t* bexfun_list, size_t start_idx) {
+
+    bexfun_t fptr = [](int nlhs, bxArray* plhs[], int nrhs, const bxArray* prhs[]) {
+        // ans = [-1]
+        plhs[0] = bxCreateDoubleScalar(-1);
+        /* return void */
+    }; /* bexfun_t fptr */
+
+    start_idx++;
+    bexfun_list[start_idx].name = "luajit::test::fun1";
+    bexfun_list[start_idx].ptr  = fptr;
+    bexfun_list[start_idx].help = "";
+
+    return start_idx; // 插入 1 个函数
+}
+
 /**
  * @brief 【必选】 列出插件提供的函数.
  *
@@ -45,8 +61,8 @@ int bxPluginFini() {
  */
 bexfun_info_t * bxPluginFunctions() {
     // 已定义的插件函数个数
-    constexpr size_t TOTAL_PLUGIN_FUNCTIONS = 4;
-    bexfun_info_t* func_list_dyn = new bexfun_info_t[TOTAL_PLUGIN_FUNCTIONS + 1];
+    constexpr size_t MAX_TOTAL_PLUGIN_FUNCTIONS = 100;
+    bexfun_info_t* func_list_dyn = new bexfun_info_t[MAX_TOTAL_PLUGIN_FUNCTIONS + 1];
 
     size_t i = 0;
     func_list_dyn[i].name = "luajit::version";
@@ -68,13 +84,15 @@ bexfun_info_t * bxPluginFunctions() {
     func_list_dyn[i].ptr  = luajit_ffi_call;
     func_list_dyn[i].help = luajit_ffi_call_help;
 
+    i = addBexFunctions(func_list_dyn, i);
+
     // 最后一个元素, `name` 字段必须为空字符串 `""`
     i++;
     func_list_dyn[i].name = "";
     func_list_dyn[i].ptr  = nullptr;
     func_list_dyn[i].help = nullptr;
 
-    assert((TOTAL_PLUGIN_FUNCTIONS == i));
+    assert((MAX_TOTAL_PLUGIN_FUNCTIONS >= i));
     return func_list_dyn;
 } /* bxPluginFunctions */
 
