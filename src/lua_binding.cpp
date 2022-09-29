@@ -1,7 +1,6 @@
 #include "lua_binding.hpp"
 
 
-
 /**
  * @brief 绑定 bex 接口, 提供 lua 中易用的接口.
  */
@@ -248,3 +247,208 @@ void bind_oop_bextype(sol::state& lua) {
     lua["bxF2KQuery"] = bxF2KQuery;
 
 } /* bind_oop_bextype */
+
+
+/**
+ * @brief 绑定裸的 bex 接口.
+ * 语法贴近 C 的用法.
+ */
+void bind_raw_bextype(sol::state& lua) {
+    /* ==== 枚举绑定 ==== */
+    // 3rd\baltam_sdk\include\bex\bex.h#L56
+    // -- [bxComplexity]
+    lua["bxREAL"] = bxREAL;
+    lua["bxCOMPLEX"] = bxCOMPLEX;
+
+    // 3rd\baltam_sdk\include\bex\bex.h#L58
+    // -- [bxClassID]
+    lua["bxUNKNOWN_CLASS"] = bxUNKNOWN_CLASS;
+    lua["bxINT_CLASS"] = bxINT_CLASS;
+    lua["bxINT64_CLASS"] = bxINT64_CLASS;
+    lua["bxDOUBLE_CLASS"] = bxDOUBLE_CLASS;
+    lua["bxSINGLE_CLASS"] = bxSINGLE_CLASS;
+    lua["bxCHAR_CLASS"] = bxCHAR_CLASS;
+    lua["bxLOGICAL_CLASS"] = bxLOGICAL_CLASS;
+    lua["bxSTRUCT_CLASS"] = bxSTRUCT_CLASS;
+    lua["bxSTRING_CLASS"] = bxSTRING_CLASS;
+    lua["bxEXTERN_CLASS"] = bxEXTERN_CLASS;
+    lua["bxCELL_CLASS"] = bxCELL_CLASS;
+
+    // 3rd\baltam_sdk\include\bex\bex.h#L70
+    // -- [bxFHandleType]
+    lua["bxFH_UNKNOWN"] = bxFH_UNKNOWN;
+    lua["bxFH_ANONYMOUS"] = bxFH_ANONYMOUS;
+    lua["bxFH_VARIABLE"] = bxFH_VARIABLE;
+    lua["bxFH_BUILTIN"] = bxFH_BUILTIN;
+    lua["bxFH_MFUNCTION"] = bxFH_MFUNCTION;
+    lua["bxFH_SCRIPT"] = bxFH_SCRIPT;
+
+    // 3rd\baltam_sdk\include\bex\bx_op.h#L26
+    // -- [bxOperatorID]
+    lua["bxUNKNOWN_OP"] = bxUNKNOWN_OP;
+    // 双目运算符
+    lua["bxADD_OP"] = bxADD_OP;
+    lua["bxSUB_OP"] = bxSUB_OP;
+    lua["bxTIMES_OP"] = bxTIMES_OP;
+    lua["bxRDIV_OP"] = bxRDIV_OP;
+    lua["bxLDIV_OP"] = bxLDIV_OP;
+    lua["bxMTIMES_OP"] = bxMTIMES_OP;
+    lua["bxMRDIV_OP"] = bxMRDIV_OP;
+    lua["bxMLDIV_OP"] = bxMLDIV_OP;
+    lua["bxPOW_OP"] = bxPOW_OP;
+    lua["bxMPOW_OP"] = bxMPOW_OP;
+    lua["bxLT_OP"] = bxLT_OP;
+    lua["bxGT_OP"] = bxGT_OP;
+    lua["bxLE_OP"] = bxLE_OP;
+    lua["bxGE_OP"] = bxGE_OP;
+    lua["bxNE_OP"] = bxNE_OP;
+    lua["bxEQ_OP"] = bxEQ_OP;
+    lua["bxAND_OP"] = bxAND_OP;
+    lua["bxOR_OP"] = bxOR_OP;
+    lua["bxHCAT_OP"] = bxHCAT_OP;
+    lua["bxVCAT_OP"] = bxVCAT_OP;
+    // 单目运算符
+    lua["bxUMINUS_OP"] = bxUMINUS_OP;
+    lua["bxUPLUS_OP"] = bxUPLUS_OP;
+    lua["bxNOT_OP"] = bxNOT_OP;
+    lua["bxTRANSP_OP"] = bxTRANSP_OP;
+    lua["bxCTRANSP_OP"] = bxCTRANSP_OP;
+    lua["bxSUBSIND_OP"] = bxSUBSIND_OP;
+    // 三目运算符
+
+    /* ==== 函数绑定 ==== */
+    // 获取数据
+    lua["bxGetClassID"] = bxGetClassID;
+    lua["bxTypeCStr"] = bxTypeCStr;
+    lua["bxGetM"] = bxGetM;
+    lua["bxGetN"] = bxGetN;
+    /** @deprecated 使用 `bxGetStringLength` 替代 */
+    lua["bxGetStringLen"] = bxGetStringLen;
+    lua["bxGetStringLength"] = bxGetStringLength;
+    lua["bxGetPr"] = bxGetPr;
+    lua["bxGetInt32s"] = bxGetInt32s;
+    lua["bxGetInt64s"] = bxGetInt64s;
+    lua["bxGetDoubles"] = bxGetDoubles;
+    lua["bxGetSingles"] = bxGetSingles;
+    lua["bxGetComplexDoubles"] = bxGetComplexDoubles;
+    lua["bxGetComplexSingles"] = bxGetComplexSingles;
+    lua["bxGetChars"] = bxGetChars;
+    lua["bxGetLogicals"] = bxGetLogicals;
+    /** @deprecated 使用 `bxGetString` 替代 */
+    lua["bxGetStringDataPr"] = bxGetStringDataPr;
+    lua["bxGetField"] = bxGetField;
+    lua["bxGetNumberOfFields"] = bxGetNumberOfFields;
+    lua["bxGetCell"] = bxGetCell;
+    lua["bxGetString"] = bxGetString;
+    lua["bxAsInt"] = bxAsInt;
+    lua["bxAsCStr"] = bxAsCStr;
+    // [bool] 类型判断函数
+    lua["bxIsInt32"] = bxIsInt32;
+    lua["bxIsInt64"] = bxIsInt64;
+    lua["bxIsDouble"] = bxIsDouble;
+    lua["bxIsSingle"] = bxIsSingle;
+    lua["bxIsComplex"] = bxIsComplex;
+    lua["bxIsChar"] = bxIsChar;
+    lua["bxIsLogical"] = bxIsLogical;
+    lua["bxIsString"] = bxIsString;
+    lua["bxIsStruct"] = bxIsStruct;
+    lua["bxIsCell"] = bxIsCell;
+    lua["bxIsRealDouble"] = bxIsRealDouble;
+    lua["bxIsRealSingle"] = bxIsRealSingle;
+    lua["bxIsComplexDouble"] = bxIsComplexDouble;
+    lua["bxIsComplexSingle"] = bxIsComplexSingle;
+
+    /* ==== 创建、修改和删除 ==== */
+    // 创建数据类型实例
+    lua["bxCreateDoubleMatrix"] = bxCreateDoubleMatrix;
+    lua["bxCreateNumericMatrix"] = bxCreateNumericMatrix;
+    lua["bxCreateLogicalMatrix"] = bxCreateLogicalMatrix;
+    lua["bxCreateCharMatrixFromStrings"] = bxCreateCharMatrixFromStrings;
+    lua["bxCreateString"] = bxCreateString;
+    /** @deprecated 使用 `bxCreateStringScalar` 替代 */
+    lua["bxCreateStringObj"] = bxCreateStringObj;
+    lua["bxCreateStructMatrix"] = bxCreateStructMatrix;
+    lua["bxCreateCellMatrix"] = bxCreateCellMatrix;
+    lua["bxCreateStringMatrix"] = bxCreateStringMatrix;
+    lua["bxCreateStringMatrixFromStrings"] = bxCreateStringMatrixFromStrings;
+    lua["bxCreateInt32Scalar"] = bxCreateInt32Scalar;
+    lua["bxCreateInt64Scalar"] = bxCreateInt64Scalar;
+    lua["bxCreateDoubleScalar"] = bxCreateDoubleScalar;
+    lua["bxCreateSingleScalar"] = bxCreateSingleScalar;
+    lua["bxCreateComplexDoubleScalar"] = bxCreateComplexDoubleScalar;
+    lua["bxCreateComplexSingleScalar"] = bxCreateComplexSingleScalar;
+    // lua["bxCreateCharScalar"] = bxCreateCharScalar;
+    lua["bxCreateLogicalScalar"] = bxCreateLogicalScalar;
+    lua["bxCreateStringScalar"] = bxCreateStringScalar;
+    // 复制与删除
+    lua["bxDuplicateArray"] = bxDuplicateArray;
+    lua["bxDuplicateArrayS"] = bxDuplicateArrayS;
+    lua["bxDestroyArray"] = bxDestroyArray;
+    // 修改数据
+    lua["bxSetM"] = bxSetM;
+    lua["bxSetN"] = bxSetN;
+    lua["bxResize"] = bxResize;
+    /** @deprecated 使用 `bxSetString` 替代 */
+    lua["bxSetStringFromCStr"] = bxSetStringFromCStr;
+    lua["bxSetField"] = bxSetField;
+    lua["bxRemoveField"] = bxRemoveField;
+    lua["bxSetCell"] = bxSetCell;
+    lua["bxSetString"] = bxSetString;
+
+    /* ==== 稀疏矩阵 ==== */
+    // 新建
+    lua["bxCreateSparse"] = bxCreateSparse;
+    lua["bxCreateSparseNumericMatrix"] = bxCreateSparseNumericMatrix;
+    lua["bxCreateSparseLogicalMatrix"] = bxCreateSparseLogicalMatrix;
+    // 类型判断
+    lua["bxIsSparse"] = bxIsSparse;
+    lua["bxIsSparseRealDouble"] = bxIsSparseRealDouble;
+    lua["bxIsSparseRealSingle"] = bxIsSparseRealSingle;
+    lua["bxIsSparseComplexDouble"] = bxIsSparseComplexDouble;
+    lua["bxIsSparseComplexSingle"] = bxIsSparseComplexSingle;
+    lua["bxIsSparseLogical"] = bxIsSparseLogical;
+    // 获取指针
+    lua["bxGetSparseDoubles"] = bxGetSparseDoubles;
+    lua["bxGetSparseSingles"] = bxGetSparseSingles;
+    lua["bxGetSparseComplexDoubles"] = bxGetSparseComplexDoubles;
+    lua["bxGetSparseComplexSingles"] = bxGetSparseComplexSingles;
+    lua["bxGetSparseLogicals"] = bxGetSparseLogicals;
+    lua["bxGetIr"] = bxGetIr;
+    lua["bxGetJc"] = bxGetJc;
+    lua["bxGetNnz"] = bxGetNnz;
+    lua["bxGetNzmax"] = bxGetNzmax;
+    // 修改、销毁
+    lua["bxSetNzmax"] = bxSetNzmax;
+    lua["bxSparseFinalize"] = bxSparseFinalize;
+
+    /* ==== 函数句柄 ==== */
+    lua["bxIsFunctionHandle"] = bxIsFunctionHandle;
+    lua["bxGetFunctionHandleType"] = bxGetFunctionHandleType;
+    lua["bxGetFunctionHandleData"] = bxGetFunctionHandleData;
+
+    /* ==== 辅助函数 ==== */
+    lua["bxPrintf"] = bxPrintf;
+    lua["bxErrMsgTxt"] = bxErrMsgTxt;
+    lua["bxCalcSingleSubscript"] = bxCalcSingleSubscript;
+
+    /* ==== bex 外部数、操作符据注册 ==== */
+    // 外部数注册
+    lua["bxRegisterCStruct"] = bxRegisterCStruct;
+    lua["bxGetCStruct"] = bxGetCStruct;
+    lua["bxCreateCStruct"] = bxCreateCStruct;
+    // 操作符据注册
+    lua["bxRegisterUnaryOperator"] = bxRegisterUnaryOperator;
+    lua["bxRegisterBinaryOperator"] = bxRegisterBinaryOperator;
+    lua["bxRegisterTernaryOperator"] = bxRegisterTernaryOperator;
+    lua["bxRegisterUnaryOperatorID"] = bxRegisterUnaryOperatorID;
+    lua["bxRegisterBinaryOperatorID"] = bxRegisterBinaryOperatorID;
+    lua["bxRegisterTernaryOperatorID"] = bxRegisterTernaryOperatorID;
+
+    /* ==== 插件函数原型 ==== */
+    // 反向导出 bxPluginFunctions 方便查询元信息
+    lua["bxPluginFunctions"] = bxPluginFunctions;
+
+    /* ==== 向内核和前端的轮询函数 ==== */
+    lua["bxK2FQuery"] = bxK2FQuery;
+    lua["bxF2KQuery"] = bxF2KQuery;
+} /* bind_raw_bextype */
