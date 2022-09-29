@@ -65,6 +65,9 @@ function main ()
     
     bxArray_test ()
     print(CAdd2(1, 2))
+    
+    print("getRhs(0)=", getRhs(0))
+    print("getRhs(0)=_bex.prhs0", getRhs(0)==_bex.prhs0)
 
     -- TODO: 可以正确计算。但是会 crash
     -- test3: load go dll
