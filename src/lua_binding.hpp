@@ -3,4 +3,4 @@
 #include "bex_luajit.hpp"
 
 
-extern sol::state bind_bextype();
+extern void bind_bextype(sol::state& lua);

@@ -1,8 +1,8 @@
 #include "lua_binding.hpp"
 
 
-sol::state bind_bextype() {
-    sol::state lua;
+void bind_bextype(sol::state& lua) {
+    // sol::state lua;
 
     /* ---- 类型绑定 ---- */
 
@@ -243,5 +243,4 @@ sol::state bind_bextype() {
     lua["bxK2FQuery"] = bxK2FQuery;
     lua["bxF2KQuery"] = bxF2KQuery;
 
-    return lua;
 } /* bind_bextype */
