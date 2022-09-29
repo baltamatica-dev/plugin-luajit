@@ -1,7 +1,11 @@
 #include "lua_binding.hpp"
 
 
-void bind_bextype(sol::state& lua) {
+
+/**
+ * @brief 绑定 bex 接口, 提供 lua 中易用的接口.
+ */
+void bind_oop_bextype(sol::state& lua) {
     // sol::state lua;
 
     /* ---- 类型绑定 ---- */
@@ -243,4 +247,4 @@ void bind_bextype(sol::state& lua) {
     lua["bxK2FQuery"] = bxK2FQuery;
     lua["bxF2KQuery"] = bxF2KQuery;
 
-} /* bind_bextype */
+} /* bind_oop_bextype */
